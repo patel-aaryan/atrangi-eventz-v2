@@ -34,3 +34,4 @@ npm-debug.log*
 .DS_Store
 *.pem
 .npmrc
+next-env.d.ts

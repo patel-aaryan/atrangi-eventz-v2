@@ -5,18 +5,22 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:web": "turbo dev --filter=web...",
+    "dev:admin": "turbo dev --filter=admin...",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "check-types": "turbo check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "ui:add": "node scripts/ui-add.js"
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@atrangi/eslint-config": "workspace:*",
+    "@atrangi/typescript-config": "workspace:*",
     "prettier": "^3.7.4",
     "turbo": "^2.6.3",
     "typescript": "5.7.3"
   },
   "packageManager": "pnpm@10.4.1",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   }
 }
