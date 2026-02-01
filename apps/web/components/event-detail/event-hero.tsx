@@ -9,10 +9,9 @@ import {
   Users,
   Award,
   Heart,
-  Tag,
   ArrowLeft,
 } from "lucide-react";
-import { Button, Badge } from "@atrangi/ui";
+import { Button } from "@atrangi/ui";
 import type { EventDetail } from "@atrangi/types";
 
 interface EventHeroProps {
@@ -98,7 +97,7 @@ export function EventHero({ event, bannerUrl }: Readonly<EventHeroProps>) {
 
           {/* Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-            <span className="bg-linear-to-r from-primary via-highlight to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-highlight to-highlight bg-clip-text text-transparent">
               {event.title}
             </span>
           </h1>
@@ -135,8 +134,8 @@ export function EventHero({ event, bannerUrl }: Readonly<EventHeroProps>) {
 
             {/* Time */}
             <div className="flex items-center gap-3 bg-card/80 backdrop-blur-sm rounded-lg p-4 border">
-              <div className="p-2 rounded-lg bg-highlight/10">
-                <Clock className="w-5 h-5 text-highlight" />
+              <div className="p-2 rounded-lg bg-pink-500/10">
+                <Clock className="w-5 h-5 text-pink-500" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Time</p>
@@ -148,8 +147,8 @@ export function EventHero({ event, bannerUrl }: Readonly<EventHeroProps>) {
 
             {/* Location */}
             <div className="flex items-center gap-3 bg-card/80 backdrop-blur-sm rounded-lg p-4 border md:col-span-2">
-              <div className="p-2 rounded-lg bg-purple-500/10">
-                <MapPin className="w-5 h-5 text-purple-500" />
+              <div className="p-2 rounded-lg bg-highlight/10">
+                <MapPin className="w-5 h-5 text-highlight" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-xs text-muted-foreground">Location</p>
@@ -189,23 +188,6 @@ export function EventHero({ event, bannerUrl }: Readonly<EventHeroProps>) {
               </div>
             )}
           </motion.div>
-
-          {/* Tags */}
-          {event.tags && event.tags.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-wrap items-center gap-2 pt-2"
-            >
-              <Tag className="w-4 h-4 text-muted-foreground" />
-              {event.tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-            </motion.div>
-          )}
         </motion.div>
       </div>
     </section>

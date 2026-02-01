@@ -61,7 +61,10 @@ export function SupportedEventCard({
             {/* Diagonal overlay - always visible on mobile (no hover); slide + fade on desktop */}
             <motion.div
               className="absolute -inset-px flex flex-col items-end justify-end pb-6 pr-6 pl-12 pt-12 bg-secondary/60 rounded-xl"
-              style={{ clipPath: "polygon(100% 100%, 100% 0, 0 100%)" }}
+              style={{
+                clipPath:
+                  "polygon(0 100%, 0 70%, 100% 50%, 100% 100%)",
+              }}
               initial={isMobile ? false : { opacity: 0, x: "100%", y: "100%" }}
               animate={
                 isMobile

@@ -20,7 +20,7 @@ export function EventsHeader({
     >
       <motion.div variants={fadeInUp}>
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
-          <span className="block bg-linear-to-r from-primary via-highlight to-purple-500 bg-clip-text text-transparent">
+          <span className="block bg-linear-to-r from-primary via-highlight to-highlight bg-clip-text text-transparent">
             Past Events
           </span>
         </h1>

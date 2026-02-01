@@ -1,4 +1,4 @@
-import { eventService } from "@/server/services/event.service";
+import { eventService } from "@atrangi/core/services/event";
 import { generatePageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 

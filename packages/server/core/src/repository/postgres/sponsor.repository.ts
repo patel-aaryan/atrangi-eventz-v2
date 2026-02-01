@@ -15,7 +15,7 @@ export class SponsorRepository {
         id,
         company_name,
         website_url,
-        image_url,
+        image_url
       FROM sponsors
       ORDER BY company_name ASC
     `;

@@ -16,7 +16,7 @@ export class SupportedEventRepository {
         name,
         event_date,
         image_url,
-        social_url,
+        social_url
       FROM supported_events
       ORDER BY event_date DESC, name ASC
     `;
