@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.0.1",
+  "name": "atrangi-eventz",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -15,12 +15,19 @@
   "devDependencies": {
     "@atrangi/eslint-config": "workspace:*",
     "@atrangi/typescript-config": "workspace:*",
+    "eslint": "^9.39.2",
     "prettier": "^3.7.4",
     "turbo": "^2.6.3",
-    "typescript": "5.7.3"
+    "typescript": "^5.7.3"
   },
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": ">=24"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^19.2.7",
+      "@types/react-dom": "^19.2.3"
+    }
   }
 }
