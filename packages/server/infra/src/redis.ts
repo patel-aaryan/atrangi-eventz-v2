@@ -1,14 +1,12 @@
 import { Redis } from "@upstash/redis";
 
-if (!process.env.UPSTASH_REDIS_REST_URL) {
-  throw new Error("Missing UPSTASH_REDIS_REST_URL environment variable");
+const restUrl = process.env.UPSTASH_REDIS_REST_URL;
+const restToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+if (!restUrl) {
+  throw new Error("UPSTASH_REDIS_REST_URL is not set");
 }
 
-if (!process.env.UPSTASH_REDIS_REST_TOKEN) {
-  throw new Error("Missing UPSTASH_REDIS_REST_TOKEN environment variable");
-}
+if (!restToken) throw new Error("UPSTASH_REDIS_REST_TOKEN is not set");
 
-export const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+export const redis = new Redis({ url: restUrl, token: restToken });
