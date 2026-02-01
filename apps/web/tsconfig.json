@@ -8,6 +8,7 @@
         "../../packages/server/core/src/services/*.service.tsx",
         "../../packages/server/core/src/services/*.service.ts"
       ],
+      "@atrangi/core/utils/*": ["../../packages/server/core/src/utils/*"],
       "@atrangi/ui/*": ["../../packages/ui/src/*"]
     },
     "plugins": [{ "name": "next" }]

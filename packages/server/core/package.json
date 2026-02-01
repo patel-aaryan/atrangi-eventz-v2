@@ -33,6 +33,7 @@
     "./types/*": "./src/types/*",
     "./repository/*": "./src/repository/postgres/*.repository.ts",
     "./cache/*": "./src/repository/redis/*.cache.ts",
-    "./services/*": "./src/services/*.service.ts"
+    "./services/*": "./src/services/*.service.ts",
+    "./utils/*": "./src/utils/*"
   }
 }

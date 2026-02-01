@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { validateReservationRequest } from "@/lib/utils/validation";
-import { reservationService } from "@/server/services/reservation.service";
+import { reservationService } from "@atrangi/core/services/reservation";
 
 /**
  * Validate batch reservation request
