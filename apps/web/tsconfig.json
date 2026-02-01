@@ -4,12 +4,15 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@atrangi/core/services/*": [
-        "../../packages/server/core/src/services/*.service.tsx",
-        "../../packages/server/core/src/services/*.service.ts"
-      ],
-      "@atrangi/core/utils/*": ["../../packages/server/core/src/utils/*"],
-      "@atrangi/ui/*": ["../../packages/ui/src/*"]
+      "@atrangi/ui/*": ["../../packages/ui/src/*"],
+      "@atrangi/core/services/email": ["../../packages/server/core/src/services/email.service.tsx"],
+      "@atrangi/core/services/pdf": ["../../packages/server/core/src/services/pdf.service.tsx"],
+      "@atrangi/core/services/*": ["../../packages/server/core/src/services/*.service.ts"],
+      "@atrangi/core/repository/*": ["../../packages/server/core/src/repository/postgres/*.repository.ts"],
+      "@atrangi/core/cache/*": ["../../packages/server/core/src/repository/redis/*.cache.ts"],
+      "@atrangi/core/utils/*": ["../../packages/server/core/src/utils/*.ts"],
+      "@atrangi/core/types": ["../../packages/server/core/src/types/index.ts"],
+      "@atrangi/core/*": ["../../packages/server/core/src/*"]
     },
     "plugins": [{ "name": "next" }]
   },

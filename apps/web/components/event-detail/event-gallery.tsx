@@ -99,80 +99,84 @@ export function EventGallery({
 
       {/* Lightbox */}
       <AnimatePresence>
-        {selectedIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-            onClick={closeLightbox}
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
-            role="dialog"
-            aria-label="Image lightbox"
-          >
-            {/* Close Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
-              onClick={closeLightbox}
-            >
-              <X className="w-6 h-6" />
-            </Button>
-
-            {/* Previous Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute left-4 z-50 text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToPrevious();
-              }}
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </Button>
-
-            {/* Image */}
+        {selectedIndex !== null && (() => {
+          const selectedImage = images[selectedIndex];
+          if (!selectedImage) return null;
+          return (
             <motion.div
-              key={selectedIndex}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              className="relative max-w-[90vw] max-h-[90vh] aspect-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+              onClick={closeLightbox}
+              onKeyDown={handleKeyDown}
+              tabIndex={0}
+              role="dialog"
+              aria-label="Image lightbox"
             >
-              <Image
-                src={images[selectedIndex].url}
-                alt={`${eventTitle} - ${images[selectedIndex].name}`}
-                width={1920}
-                height={1080}
-                className="object-contain max-h-[90vh] w-auto"
-                priority
-              />
+              {/* Close Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
+                onClick={closeLightbox}
+              >
+                <X className="w-6 h-6" />
+              </Button>
+
+              {/* Previous Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-4 z-50 text-white hover:bg-white/20"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToPrevious();
+                }}
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </Button>
+
+              {/* Image */}
+              <motion.div
+                key={selectedIndex}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                className="relative max-w-[90vw] max-h-[90vh] aspect-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={selectedImage.url}
+                  alt={`${eventTitle} - ${selectedImage.name}`}
+                  width={1920}
+                  height={1080}
+                  className="object-contain max-h-[90vh] w-auto"
+                  priority
+                />
+              </motion.div>
+
+              {/* Next Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-4 z-50 text-white hover:bg-white/20"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToNext();
+                }}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </Button>
+
+              {/* Image Counter */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">
+                {selectedIndex + 1} / {images.length}
+              </div>
             </motion.div>
-
-            {/* Next Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 z-50 text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                goToNext();
-              }}
-            >
-              <ChevronRight className="w-8 h-8" />
-            </Button>
-
-            {/* Image Counter */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">
-              {selectedIndex + 1} / {images.length}
-            </div>
-          </motion.div>
-        )}
+          );
+        })()}
       </AnimatePresence>
     </section>
   );

@@ -5,9 +5,16 @@
     "jsx": "react-jsx",
     "noImplicitAny": false,
     "paths": {
+      "@atrangi/core/services/email": ["./src/services/email.service.tsx"],
+      "@atrangi/core/services/pdf": ["./src/services/pdf.service.tsx"],
+      "@atrangi/core/services/*": ["./src/services/*.service.ts"],
+      "@atrangi/core/types/*": ["./src/types/*.ts"],
+      "@atrangi/core/repository/*": ["./src/repository/postgres/*.repository.ts"],
+      "@atrangi/core/cache/*": ["./src/repository/redis/*.cache.ts"],
+      "@atrangi/core/utils/*": ["./src/utils/*.ts"],
       "@atrangi/core/*": ["./src/*"]
     }
   },
-  "include": ["."],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
