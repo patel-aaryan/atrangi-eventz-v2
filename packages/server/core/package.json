@@ -9,11 +9,17 @@
   "dependencies": {
     "@atrangi/db": "workspace:*",
     "@atrangi/infra": "workspace:*",
+    "@atrangi/types": "workspace:*",
+    "@aws-sdk/client-s3": "^3.956.0",
+    "@aws-sdk/s3-request-presigner": "^3.956.0",
     "@react-email/render": "^1.4.0",
     "@react-pdf/renderer": "^4.3.1",
+    "@types/qrcode": "^1.5.6",
     "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
-    "zod": "^3.25.76"
+    "qrcode": "^1.5.4",
+    "react": "^19.2.4",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@atrangi/eslint-config": "workspace:*",
@@ -24,6 +30,9 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*"
+    "./types/*": "./src/types/*",
+    "./repository/*": "./src/repository/postgres/*.repository.ts",
+    "./cache/*": "./src/repository/redis/*.cache.ts",
+    "./services/*": "./src/services/*.service.ts"
   }
 }

@@ -1,12 +1,20 @@
-import { Button } from "@atrangi/ui"
+import { HeroSection, AboutSection } from "@/components/home";
 
-export default function Page() {
+const fadeInUp = {
+  initial: { opacity: 0, y: 60 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 },
+};
+
+const staggerContainer = {
+  animate: { transition: { staggerChildren: 0.1 } },
+};
+
+export default function Home() {
   return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button size="sm">Button</Button>
-      </div>
-    </div>
-  )
+    <>
+      <HeroSection fadeInUp={fadeInUp} staggerContainer={staggerContainer} />
+      <AboutSection fadeInUp={fadeInUp} staggerContainer={staggerContainer} />
+    </>
+  );
 }

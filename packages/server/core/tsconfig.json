@@ -2,6 +2,8 @@
   "extends": "@atrangi/typescript-config/base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "jsx": "react-jsx",
+    "noImplicitAny": false,
     "paths": {
       "@atrangi/core/*": ["./src/*"]
     }

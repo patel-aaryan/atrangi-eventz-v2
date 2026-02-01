@@ -1,30 +1,41 @@
-import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { UpcomingEventBanner } from "@/components/upcoming-event-banner";
+import { generateSEOMetadata } from "@/lib/metadata";
+import { AppProviders } from "@/providers/app-providers";
 
-import "@atrangi/ui/globals.css"
-import { Providers } from "@/components/providers"
-
-const fontSans = Geist({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-sans",
-})
+});
 
-const fontMono = Geist_Mono({
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  variable: "--font-mono",
-})
+});
+
+export const metadata: Metadata = generateSEOMetadata();
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark">
       <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <AppProviders>
+          <Navbar />
+          <UpcomingEventBanner />
+          <main>{children}</main>
+          <Footer />
+        </AppProviders>
       </body>
     </html>
-  )
+  );
 }

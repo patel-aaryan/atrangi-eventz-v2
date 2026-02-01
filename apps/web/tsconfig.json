@@ -3,18 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
+      "@/*": ["./*"],
+      "@atrangi/core/services/*": [
+        "../../packages/server/core/src/services/*.service.tsx",
+        "../../packages/server/core/src/services/*.service.ts"
       ],
-      "@atrangi/ui/*": [
-        "../../packages/ui/src/*"
-      ]
+      "@atrangi/ui/*": ["../../packages/ui/src/*"]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "plugins": [{ "name": "next" }]
   },
   "include": [
     "next-env.d.ts",

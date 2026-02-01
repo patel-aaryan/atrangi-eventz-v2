@@ -1,0 +1,62 @@
+export interface CreateTicketData {
+  eventId: string;
+  orderId: string;
+  orderNumber: string;
+  orderSubtotal: number;
+  orderDiscount: number;
+  orderProcessingFee: number;
+  orderTotal: number;
+  tierName: string;
+  tierIndex: number;
+  priceAtPurchase: number;
+  attendeeFirstName: string;
+  attendeeLastName: string;
+  buyerFirstName: string;
+  buyerLastName: string;
+  buyerPhone?: string;
+  billingZip?: string;
+  billingAddress?: string;
+  amountPaid: number;
+  currency?: string;
+  stripePaymentIntentId?: string;
+  stripeChargeId?: string;
+  stripePaymentMethodId?: string;
+  stripeCustomerId?: string;
+  paymentStatus?: string;
+  qrCodeData?: string;
+}
+
+export interface Ticket {
+  id: string;
+  event_id: string;
+  order_id: string;
+  order_number: string;
+  order_subtotal: number;
+  order_discount: number;
+  order_processing_fee: number;
+  order_total: number;
+  tier_name: string;
+  tier_index: number;
+  price_at_purchase: number;
+  attendee_first_name: string;
+  attendee_last_name: string;
+  buyer_first_name: string;
+  buyer_last_name: string;
+  buyer_phone: string | null;
+  billing_zip: string | null;
+  billing_address: string | null;
+  ticket_code: string;
+  qr_code_data: string | null;
+  amount_paid: number;
+  currency: string;
+  stripe_payment_intent_id: string | null;
+  stripe_charge_id: string | null;
+  stripe_payment_method_id: string | null;
+  payment_status: string | null;
+  status: string;
+  is_checked_in: boolean;
+  checked_in_at: Date | null;
+  purchased_at: Date;
+  created_at: Date;
+  updated_at: Date;
+}

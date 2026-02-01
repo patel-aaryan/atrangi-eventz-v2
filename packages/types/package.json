@@ -1,0 +1,20 @@
+{
+  "name": "@atrangi/types",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@atrangi/eslint-config": "workspace:*",
+    "@atrangi/typescript-config": "workspace:*",
+    "eslint": "^9.39.2",
+    "typescript": "^5.7.3"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  }
+}

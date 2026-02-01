@@ -11,7 +11,7 @@
     "@atrangi/db": "workspace:*",
     "@atrangi/infra": "workspace:*",
     "dayjs": "^1.11.19",
-    "zod": "^3.25.76"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@atrangi/eslint-config": "workspace:*",
