@@ -1,7 +1,7 @@
 import { mg } from "@atrangi/infra/mailgun";
 import { render } from "@react-email/render";
 import { TicketConfirmationEmail, ContactFormEmail } from "@atrangi/core/emails";
-import { pdfService } from "@atrangi/core/services/pdf.service";
+import { pdfService } from "@atrangi/core/services/pdf";
 import type { EmailOptions } from "@atrangi/core/types";
 
 class EmailService {
