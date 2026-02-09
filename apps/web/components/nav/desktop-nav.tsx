@@ -11,6 +11,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ShoppingCartDropdown } from "./shopping-cart-dropdown";
 import { Calendar, CalendarCheck, Handshake } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { handleHashNavigation } from "@/lib/utils/navigation";
 
 const ENABLE_TICKETING = process.env.NEXT_PUBLIC_ENABLE_TICKETING === "true"; // TODO: REMOVE THIS IN NEXT RELEASE
 
@@ -35,13 +37,13 @@ const NAV_ITEMS = [
       // TODO: REMOVE THIS IN NEXT RELEASE
       ...(ENABLE_TICKETING
         ? [
-          {
-            name: "Upcoming Event",
-            href: "/upcoming-event",
-            description: "Check out what's coming next",
-            icon: CalendarCheck,
-          },
-        ]
+            {
+              name: "Upcoming Event",
+              href: "/upcoming-event",
+              description: "Check out what's coming next",
+              icon: CalendarCheck,
+            },
+          ]
         : []),
       /////////////////////////////////////
     ],
@@ -50,6 +52,8 @@ const NAV_ITEMS = [
 ];
 
 export function DesktopNav() {
+  const pathname = usePathname();
+
   return (
     <>
       <NavigationMenu delayDuration={0}>
@@ -76,6 +80,13 @@ export function DesktopNav() {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={dropdownItem.href}
+                                  onClick={(e) =>
+                                    handleHashNavigation(
+                                      e,
+                                      dropdownItem.href,
+                                      pathname,
+                                    )
+                                  }
                                   className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all hover:bg-linear-to-r hover:from-primary/10 hover:to-highlight/10 hover:shadow-md focus:bg-linear-to-r focus:from-primary/10 focus:to-highlight/10 border border-transparent hover:border-primary/20 group"
                                 >
                                   <div className="flex items-center gap-2.5">
@@ -106,7 +117,14 @@ export function DesktopNav() {
                     className={navigationMenuTriggerStyle()}
                     asChild
                   >
-                    <Link href={item.href}>{item.name}</Link>
+                    <Link
+                      href={item.href}
+                      onClick={(e) =>
+                        handleHashNavigation(e, item.href, pathname)
+                      }
+                    >
+                      {item.name}
+                    </Link>
                   </NavigationMenuLink>
                 )}
               </NavigationMenuItem>

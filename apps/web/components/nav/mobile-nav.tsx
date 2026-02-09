@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import {
   Button,
@@ -11,6 +12,7 @@ import {
   SheetTrigger,
 } from "@atrangi/ui";
 import { ShoppingCartDropdown } from "./shopping-cart-dropdown";
+import { handleHashNavigation } from "@/lib/utils/navigation";
 
 const ENABLE_TICKETING = process.env.NEXT_PUBLIC_ENABLE_TICKETING === "true"; // TODO: REMOVE THIS IN NEXT RELEASE
 
@@ -29,6 +31,7 @@ const NAV_ITEMS = [
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -50,7 +53,11 @@ export function MobileNav() {
             <Link
               key={item.name}
               href={item.href}
-              onClick={() => setIsOpen(false)}
+              onClick={(e) =>
+                handleHashNavigation(e, item.href, pathname, () =>
+                  setIsOpen(false),
+                )
+              }
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
               <Button

@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { UpcomingEventBanner } from "@/components/upcoming-event-banner";
 import { generateSEOMetadata } from "@/lib/metadata";
 import { AppProviders } from "@/providers/app-providers";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ScrollToTop />
         <AppProviders>
           <Navbar />
           <UpcomingEventBanner />
