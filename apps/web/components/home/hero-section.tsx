@@ -5,6 +5,8 @@ import { Button } from "@atrangi/ui";
 import Link from "next/link";
 import { FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 import { siteConfig } from "@/lib/metadata";
+import { handleHashNavigation } from "@/lib/utils/navigation";
+import { usePathname } from "next/navigation";
 
 interface HeroSectionProps {
   fadeInUp: Variants;
@@ -15,6 +17,8 @@ export function HeroSection({
   fadeInUp,
   staggerContainer,
 }: Readonly<HeroSectionProps>) {
+  const pathname = usePathname();
+
   return (
     <section
       id="home"
@@ -94,7 +98,9 @@ export function HeroSection({
               Students of Ontario
             </span>{" "}
             with exciting{" "}
-            <span className="text-highlight font-semibold">cultural events</span>
+            <span className="text-highlight font-semibold">
+              cultural events
+            </span>
           </motion.p>
 
           <motion.div
@@ -114,7 +120,12 @@ export function HeroSection({
               variant="outline"
               className="text-lg px-8 py-6 border-2"
             >
-              <Link href="#about">About Us</Link>
+              <Link
+                href="#about"
+                onClick={(e) => handleHashNavigation(e, "/#about", pathname)}
+              >
+                About Us
+              </Link>
             </Button>
           </motion.div>
 
