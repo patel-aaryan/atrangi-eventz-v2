@@ -22,12 +22,12 @@ const features = [
     icon: Music,
     title: "Community Building",
     description:
-      "Connecting Gujarati students across Ontario and creating lasting friendships.",
+      "Creating and expanding the Gujarati student community across university campuses in Ontario",
     href: "/supported-events",
   },
   {
     icon: Calendar,
-    title: "Our Pillars",
+    title: "Our Supporters",
     description:
       "Meet the supporters and partners who make our vision come to life.",
     href: "/sponsors",
