@@ -1,5 +1,5 @@
-import { eventService } from "@atrangi/core/services/event";
 import { generatePageMetadata } from "@/lib/metadata";
+import { getEventBySlug } from "@/lib/cache/events";
 import type { Metadata } from "next";
 
 interface EventLayoutProps {
@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   try {
-    const event = await eventService.getEventBySlug(slug);
+    const event = await getEventBySlug(slug);
 
     if (!event) {
       return generatePageMetadata({
@@ -46,19 +46,18 @@ export async function generateMetadata({
       description,
       path: `/past-events/${slug}`,
       keywords,
-      ogImage: event.banner_image_url || undefined, // Use event's banner as ogImage
+      ogImage: event.banner_image_url || undefined,
     });
   } catch (error) {
     console.error("Error generating metadata for event:", error);
-    return {
-      title: "Events",
+    return generatePageMetadata({
+      title: "Event",
       description: "View event details on Atrangi Eventz.",
-    };
+      path: `/past-events/${slug}`,
+    });
   }
 }
 
-export default async function EventLayout({
-  children,
-}: Readonly<EventLayoutProps>) {
+export default function EventLayout({ children }: Readonly<EventLayoutProps>) {
   return <>{children}</>;
 }

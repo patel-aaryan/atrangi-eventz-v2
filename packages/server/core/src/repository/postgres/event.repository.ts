@@ -81,7 +81,7 @@ export class EventRepository {
   /**
    * Find the next upcoming published event (static data only)
    * Returns null if no upcoming event is found
-   * This excludes dynamic ticket counts for efficient caching
+   * Excludes dynamic ticket counts so callers can merge with getTicketAvailability() for fresh counts
    */
   async findUpcomingStatic(): Promise<UpcomingEventStatic | null> {
     const query = `
@@ -235,7 +235,7 @@ export class EventRepository {
   /**
    * Find an event by slug (static data only)
    * Returns null if event is not found or not public
-   * This excludes dynamic ticket counts for efficient caching
+   * Excludes dynamic ticket counts so callers can merge with getTicketAvailability() for fresh counts
    */
   async findBySlugStatic(slug: string): Promise<EventDetailStatic | null> {
     const query = `

@@ -1,5 +1,3 @@
-"use client";
-
 import { EventsHeader, PastEventsList } from "@/components/past-events";
 
 const fadeInUp = {
