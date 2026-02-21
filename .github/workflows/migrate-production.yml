@@ -1,0 +1,46 @@
+name: Run Production Database Migrations
+
+on:
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+    inputs:
+      confirm:
+        description: 'Type "migrate" to confirm running migrations'
+        required: true
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - migrations/**
+  #     - database.json
+  #     - scripts/migrate.js
+
+jobs:
+  migrate:
+    name: Run Database Migrations
+    runs-on: ubuntu-latest
+
+    # Only run if manually confirmed or if changes are in main branch
+    if: github.event_name == 'push' || github.event.inputs.confirm == 'migrate'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run migrations
+        env:
+          NODE_ENV: production
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          CI: true
+        run: npm run migrate
+
+      - name: Migration completed
+        run: echo "✅ Database migrations completed successfully"
