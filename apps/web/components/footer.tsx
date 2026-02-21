@@ -83,7 +83,6 @@ export function Footer() {
     }
   };
 
-
   if (hideFooter) return null;
 
   return (
@@ -106,7 +105,9 @@ export function Footer() {
               <div className="flex flex-nowrap gap-x-16 lg:gap-x-24 gap-y-6 md:flex-wrap">
                 {/* Social Links - left, stacked; narrower on mobile */}
                 <div className="min-w-32 shrink-0 md:min-w-64">
-                  <h3 className="text-lg font-semibold mb-2 md:mb-4">Follow Us</h3>
+                  <h3 className="text-lg font-semibold mb-2 md:mb-4">
+                    Follow Us
+                  </h3>
                   <ul className="flex flex-col gap-1.5 md:gap-2">
                     {SOCIAL_LINKS.map((social) => (
                       <li key={social.name}>
@@ -127,7 +128,9 @@ export function Footer() {
 
                 {/* Quick Links - right, stacked */}
                 <div className="min-w-0 shrink-0">
-                  <h3 className="text-lg font-semibold mb-2 md:mb-4">Quick Links</h3>
+                  <h3 className="text-lg font-semibold mb-2 md:mb-4">
+                    Quick Links
+                  </h3>
                   <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
                     {QUICK_LINKS.map((link) => (
                       <li key={link.name}>

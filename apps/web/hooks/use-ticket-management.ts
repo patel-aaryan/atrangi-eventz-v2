@@ -5,7 +5,7 @@ interface UseTicketManagementProps {
   setSelectedTickets: (
     tickets:
       | Record<string, number>
-      | ((prev: Record<string, number>) => Record<string, number>)
+      | ((prev: Record<string, number>) => Record<string, number>),
   ) => void;
 }
 
@@ -29,7 +29,7 @@ export function useTicketManagement({
         [ticketId]: (prev[ticketId] || 0) + quantity,
       }));
     },
-    [setSelectedTickets]
+    [setSelectedTickets],
   );
 
   const removeTicket = useCallback(
@@ -46,7 +46,7 @@ export function useTicketManagement({
         return { ...prev, [ticketId]: newQty };
       });
     },
-    [setSelectedTickets]
+    [setSelectedTickets],
   );
 
   const updateTicketQuantity = useCallback(
@@ -64,7 +64,7 @@ export function useTicketManagement({
         }));
       }
     },
-    [setSelectedTickets]
+    [setSelectedTickets],
   );
 
   const clearSelections = useCallback(() => {

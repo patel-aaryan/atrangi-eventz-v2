@@ -4,7 +4,7 @@ import { TicketDocument } from "../pdfs/ticketDocument";
 
 class PdfService {
   async generateTicketsPdf(
-    payload: TicketPdfPayload
+    payload: TicketPdfPayload,
   ): Promise<GeneratePdfResult> {
     const document = <TicketDocument payload={payload} />;
     const buffer = await renderToBuffer(document);

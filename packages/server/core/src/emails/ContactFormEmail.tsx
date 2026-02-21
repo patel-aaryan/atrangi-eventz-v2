@@ -6,11 +6,7 @@ interface Props {
   message: string;
 }
 
-export function ContactFormEmail({
-  name,
-  email,
-  message,
-}: Readonly<Props>) {
+export function ContactFormEmail({ name, email, message }: Readonly<Props>) {
   return (
     <div
       style={{ fontFamily: "Arial, sans-serif", padding: 20, maxWidth: 600 }}

@@ -31,7 +31,7 @@ import type { PaymentFormData, StripePaymentResult } from "@/types/checkout";
 interface PaymentFormProps {
   onSubmit: (
     formData: PaymentFormData,
-    stripeResult: StripePaymentResult
+    stripeResult: StripePaymentResult,
   ) => void;
   onBack: () => void;
   isSubmitting?: boolean;
@@ -59,7 +59,7 @@ export function PaymentForm({
 
   const handleInputChange = (
     field: keyof PaymentFormData,
-    value: string | boolean
+    value: string | boolean,
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
@@ -89,7 +89,7 @@ export function PaymentForm({
   };
 
   const handleSubmit = async (
-    e: Parameters<NonNullable<ComponentProps<"form">["onSubmit"]>>[0]
+    e: Parameters<NonNullable<ComponentProps<"form">["onSubmit"]>>[0],
   ) => {
     e.preventDefault();
 

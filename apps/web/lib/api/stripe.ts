@@ -25,7 +25,7 @@ interface CreatePaymentIntentResult {
  * @returns Client secret and payment intent ID
  */
 export async function createPaymentIntent(
-  params: CreatePaymentIntentParams
+  params: CreatePaymentIntentParams,
 ): Promise<CreatePaymentIntentResult> {
   const response = await fetch("/api/stripe/create-payment-intent", {
     method: "POST",
@@ -45,9 +45,7 @@ export async function createPaymentIntent(
  * Cancel a Stripe PaymentIntent
  * @param clientSecret The client secret of the PaymentIntent to cancel
  */
-export async function cancelPaymentIntent(
-  clientSecret: string
-): Promise<void> {
+export async function cancelPaymentIntent(clientSecret: string): Promise<void> {
   const response = await fetch("/api/stripe/cancel-payment-intent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -59,4 +57,3 @@ export async function cancelPaymentIntent(
     throw new Error(error.message || "Failed to cancel payment intent");
   }
 }
-

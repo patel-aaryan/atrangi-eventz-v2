@@ -55,7 +55,7 @@ export class ReservationCache {
   async acquireLockWithRetry(
     eventId: string,
     maxRetries: number = 4,
-    baseDelayMs: number = 100
+    baseDelayMs: number = 100,
   ): Promise<boolean> {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       const acquired = await this.acquireLock(eventId);
@@ -141,7 +141,7 @@ export class ReservationCache {
 
       // Get all reservation values
       const values = await Promise.all(
-        keys.map((key) => redis.get<ReservationData>(key))
+        keys.map((key) => redis.get<ReservationData>(key)),
       );
 
       // Filter out null values and return valid reservations
@@ -158,12 +158,12 @@ export class ReservationCache {
    */
   async getReservationsBySession(
     eventId: string,
-    sessionId: string
+    sessionId: string,
   ): Promise<ReservationData[]> {
     try {
       const allReservations = await this.getReservations(eventId);
       return allReservations.filter(
-        (reservation) => reservation.sessionId === sessionId
+        (reservation) => reservation.sessionId === sessionId,
       );
     } catch (error) {
       console.error("Error getting reservations by session:", error);
@@ -177,7 +177,7 @@ export class ReservationCache {
    */
   async deleteReservationsBySession(
     eventId: string,
-    sessionId: string
+    sessionId: string,
   ): Promise<void> {
     try {
       const keys = await this.getReservationKeys(eventId);
@@ -188,7 +188,7 @@ export class ReservationCache {
         keys.map(async (key) => {
           const value = await redis.get<ReservationData>(key);
           return { key, value };
-        })
+        }),
       );
 
       const keysToDelete = entries
@@ -212,7 +212,7 @@ export class ReservationCache {
     eventId: string,
     sessionId: string,
     quantity: number,
-    tierIndex: number
+    tierIndex: number,
   ): Promise<string> {
     try {
       // Generate UUID for reservation ID
@@ -244,7 +244,7 @@ export class ReservationCache {
   async createReservations(
     eventId: string,
     sessionId: string,
-    reservations: Array<{ quantity: number; tierIndex: number }>
+    reservations: Array<{ quantity: number; tierIndex: number }>,
   ): Promise<string[]> {
     try {
       const reservationIds: string[] = [];
@@ -265,7 +265,7 @@ export class ReservationCache {
         reservationPromises.push(
           redis.set(reservationKey, reservationData, {
             ex: this.RESERVATION_TTL,
-          })
+          }),
         );
       }
 

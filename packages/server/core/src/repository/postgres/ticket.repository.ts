@@ -11,7 +11,7 @@ export class TicketRepository {
    */
   async countSoldTicketsByTier(
     eventId: string,
-    tierIndex: number
+    tierIndex: number,
   ): Promise<number> {
     const query = `
       SELECT COUNT(*) as count
@@ -185,7 +185,7 @@ export class TicketRepository {
   async updateQrCodeAndStatus(
     ticketId: string,
     qrCodeData: string,
-    status: "pending" | "confirmed" | "checked_in" = "confirmed"
+    status: "pending" | "confirmed" | "checked_in" = "confirmed",
   ): Promise<Ticket> {
     const query = `
       UPDATE tickets 

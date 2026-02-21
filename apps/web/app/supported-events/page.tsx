@@ -1,7 +1,7 @@
 import {
   HeroSection,
   StatsSection,
-  SupportedEventsGrid
+  SupportedEventsGrid,
 } from "@/components/supported-events";
 
 const fadeInUp = {

@@ -43,7 +43,7 @@ export type CheckoutFormOutput = z.output<typeof checkoutFormSchema>;
 
 // Helper function to format Zod errors into the expected error structure
 export function formatContactErrors(
-  errors: z.ZodError
+  errors: z.ZodError,
 ): Partial<Record<keyof z.infer<typeof contactInfoSchema>, string>> {
   const formatted: Partial<
     Record<keyof z.infer<typeof contactInfoSchema>, string>
@@ -61,7 +61,7 @@ export function formatContactErrors(
 
 // Helper function to format attendee errors
 export function formatAttendeeErrors(
-  errors: z.ZodError
+  errors: z.ZodError,
 ): Partial<Record<keyof z.infer<typeof attendeeInfoSchema>, string>> {
   const formatted: Partial<
     Record<keyof z.infer<typeof attendeeInfoSchema>, string>

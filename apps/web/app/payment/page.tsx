@@ -55,7 +55,7 @@ export default function PaymentPage() {
   const savedCheckoutData = useAppSelector((state) => state.checkout.formData);
   const storedPayment = useAppSelector((state) => state.checkout.paymentIntent);
   const storedReservation = useAppSelector(
-    (state) => state.checkout.reservation
+    (state) => state.checkout.reservation,
   );
 
   // Reservation timer hook with persisted start time from when reservation was created
@@ -64,7 +64,7 @@ export default function PaymentPage() {
     startTime: storedReservation?.createdAt || null,
     onExpire: () => {
       setPaymentError(
-        "Your reservation has expired. Please select tickets again."
+        "Your reservation has expired. Please select tickets again.",
       );
       // Clean up stored payment and reservation data
       dispatch(clearPaymentIntent());
@@ -194,14 +194,14 @@ export default function PaymentPage() {
             createdAt: Date.now(),
             amount: amountInCents,
             eventId: currentEvent.id,
-          })
+          }),
         );
       } catch (error) {
         console.error("Error creating PaymentIntent:", error);
         setPaymentError(
           error instanceof Error
             ? error.message
-            : "Failed to initialize payment. Please try again."
+            : "Failed to initialize payment. Please try again.",
         );
         // Reset ref on error so user can retry
         paymentIntentCreatedRef.current = false;
@@ -274,14 +274,14 @@ export default function PaymentPage() {
 
   const handleFormSubmit = async (
     formData: PaymentFormData,
-    stripeResult: StripePaymentResult
+    stripeResult: StripePaymentResult,
   ) => {
     setIsSubmitting(true);
 
     try {
       if (!savedCheckoutData) {
         alert(
-          "We need your contact and attendee details before completing payment."
+          "We need your contact and attendee details before completing payment.",
         );
         router.push("/checkout");
         return;
@@ -293,7 +293,7 @@ export default function PaymentPage() {
         ticketSelections: ticketSelections.map((selection) => {
           const tierIndex = Number.parseInt(
             selection.ticketId.replace("ticket-", ""),
-            10
+            10,
           );
 
           return {
@@ -340,7 +340,7 @@ export default function PaymentPage() {
         alert(
           error instanceof Error
             ? error.message
-            : "We couldn't complete your purchase. Please try again."
+            : "We couldn't complete your purchase. Please try again.",
         );
         return;
       }
@@ -351,7 +351,7 @@ export default function PaymentPage() {
 
       // Navigate to confirmation page
       router.push(
-        `/confirmation?orderId=${result.orderNumber || result.orderId}`
+        `/confirmation?orderId=${result.orderNumber || result.orderId}`,
       );
     } catch (error) {
       console.error("Payment error:", error);

@@ -28,7 +28,9 @@ class QStashService {
     // Store message ID in cache so we can cancel it on successful payment
     await this.qstashCache.setMessageId(paymentIntentId, result.messageId);
 
-    console.log(`[QStash] Scheduled cleanup for PaymentIntent ${paymentIntentId}, messageId: ${result.messageId}`);
+    console.log(
+      `[QStash] Scheduled cleanup for PaymentIntent ${paymentIntentId}, messageId: ${result.messageId}`,
+    );
 
     return result.messageId;
   }
@@ -41,7 +43,9 @@ class QStashService {
       const messageId = await this.qstashCache.getMessageId(paymentIntentId);
 
       if (!messageId) {
-        console.log(`[QStash] No scheduled cleanup found for PaymentIntent ${paymentIntentId}`);
+        console.log(
+          `[QStash] No scheduled cleanup found for PaymentIntent ${paymentIntentId}`,
+        );
         return false;
       }
 
@@ -49,15 +53,19 @@ class QStashService {
 
       await this.qstashCache.deleteMessageId(paymentIntentId);
 
-      console.log(`[QStash] Cancelled cleanup for PaymentIntent ${paymentIntentId}, messageId: ${messageId}`);
+      console.log(
+        `[QStash] Cancelled cleanup for PaymentIntent ${paymentIntentId}, messageId: ${messageId}`,
+      );
       return true;
     } catch (error) {
       // Message might have already been delivered or expired
-      console.error(`[QStash] Error cancelling cleanup for ${paymentIntentId}:`, error);
+      console.error(
+        `[QStash] Error cancelling cleanup for ${paymentIntentId}:`,
+        error,
+      );
       return false;
     }
   }
 }
 
 export const qstashService = new QStashService();
-

@@ -21,20 +21,20 @@ export async function POST(request: NextRequest) {
       {
         message: "Message sent successfully",
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation error", details: error.issues },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     console.error("Contact form error:", error);
     return NextResponse.json(
       { error: "Failed to send message. Please try again later." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

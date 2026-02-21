@@ -28,7 +28,7 @@ class TicketService {
    * Creates order, tickets, generates QR codes, and sends confirmation email
    */
   async completePurchase(
-    data: CompletePurchaseData
+    data: CompletePurchaseData,
   ): Promise<CompletePurchaseResult> {
     // 1. Validate event exists
     const event = await this.eventRepository.findById(data.eventId);
@@ -68,7 +68,7 @@ class TicketService {
       // Use an exact prefix with a delimiter to avoid matching tiers with shared prefixes
       // e.g. ensure "ticket-1" does not match "ticket-10-0"
       const attendeesForTicket = data.attendeeInfo.filter((attendee) =>
-        attendee.ticketId.startsWith(`${selection.ticketId}-`)
+        attendee.ticketId.startsWith(`${selection.ticketId}-`),
       );
 
       for (let i = 0; i < selection.quantity; i++) {
@@ -120,11 +120,11 @@ class TicketService {
         const updatedTicket = await this.ticketRepository.updateQrCodeAndStatus(
           ticket.id,
           qrCodeData,
-          "confirmed"
+          "confirmed",
         );
 
         return updatedTicket;
-      })
+      }),
     );
 
     // 5. Update order status to confirmed

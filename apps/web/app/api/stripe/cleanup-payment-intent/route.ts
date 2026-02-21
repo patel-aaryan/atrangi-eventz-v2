@@ -9,14 +9,20 @@ async function handler(request: NextRequest) {
 
     if (!paymentIntentId) {
       console.error("[Cleanup] Missing paymentIntentId in request");
-      return NextResponse.json({ error: "Missing paymentIntentId" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing paymentIntentId" },
+        { status: 400 },
+      );
     }
 
-    console.log(`[Cleanup] Processing cleanup for PaymentIntent: ${paymentIntentId}`);
+    console.log(
+      `[Cleanup] Processing cleanup for PaymentIntent: ${paymentIntentId}`,
+    );
 
     try {
       // Get current PaymentIntent status
-      const paymentIntent = await stripeService.getPaymentIntent(paymentIntentId);
+      const paymentIntent =
+        await stripeService.getPaymentIntent(paymentIntentId);
 
       // Only cancel if still in cancelable state
       const cancelableStatuses = [
@@ -27,7 +33,9 @@ async function handler(request: NextRequest) {
 
       if (cancelableStatuses.includes(paymentIntent.status)) {
         await stripeService.cancelPaymentIntent(paymentIntentId);
-        console.log(`[Cleanup] Cancelled orphaned PaymentIntent: ${paymentIntentId}`);
+        console.log(
+          `[Cleanup] Cancelled orphaned PaymentIntent: ${paymentIntentId}`,
+        );
 
         return NextResponse.json({
           success: true,
@@ -37,7 +45,9 @@ async function handler(request: NextRequest) {
       }
 
       // Already succeeded, cancelled, or in another state
-      console.log(`[Cleanup] PaymentIntent ${paymentIntentId} in status '${paymentIntent.status}', no action needed`);
+      console.log(
+        `[Cleanup] PaymentIntent ${paymentIntentId} in status '${paymentIntent.status}', no action needed`,
+      );
 
       return NextResponse.json({
         success: true,
@@ -45,27 +55,31 @@ async function handler(request: NextRequest) {
         status: paymentIntent.status,
         paymentIntentId,
       });
-
     } catch (stripeError) {
       // PaymentIntent might not exist (deleted, etc.)
-      console.error(`[Cleanup] Stripe error for ${paymentIntentId}:`, stripeError);
+      console.error(
+        `[Cleanup] Stripe error for ${paymentIntentId}:`,
+        stripeError,
+      );
 
       return NextResponse.json({
         success: true,
         action: "error",
         paymentIntentId,
-        error: stripeError instanceof Error ? stripeError.message : "Unknown Stripe error",
+        error:
+          stripeError instanceof Error
+            ? stripeError.message
+            : "Unknown Stripe error",
       });
     }
   } catch (error) {
     console.error("[Cleanup] Handler error:", error);
     return NextResponse.json(
       { error: "Cleanup handler failed" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 // Wrap handler with QStash signature verification
 export const POST = verifySignatureAppRouter(handler);
-

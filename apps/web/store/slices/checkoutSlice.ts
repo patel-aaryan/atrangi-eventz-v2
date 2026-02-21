@@ -66,4 +66,3 @@ export const {
   clearAllCheckoutData,
 } = checkoutSlice.actions;
 export default checkoutSlice.reducer;
-

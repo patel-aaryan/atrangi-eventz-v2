@@ -6,30 +6,41 @@ interface ReservationRequest {
   quantity?: number;
 }
 
-export function validateReservationRequest(body: ReservationRequest): NextResponse | null {
+export function validateReservationRequest(
+  body: ReservationRequest,
+): NextResponse | null {
   const { eventId, tierIndex, quantity } = body;
 
   // Validate required fields
   if (!eventId || tierIndex === undefined || !quantity) {
     return NextResponse.json(
-      { error: "Missing required fields", message: "eventId, tierIndex, and quantity are required" },
-      { status: 400 }
+      {
+        error: "Missing required fields",
+        message: "eventId, tierIndex, and quantity are required",
+      },
+      { status: 400 },
     );
   }
 
   // Validate quantity
   if (typeof quantity !== "number" || quantity <= 0) {
     return NextResponse.json(
-      { error: "Invalid quantity", message: "Quantity must be a positive number" },
-      { status: 400 }
+      {
+        error: "Invalid quantity",
+        message: "Quantity must be a positive number",
+      },
+      { status: 400 },
     );
   }
 
   // Validate tierIndex
   if (typeof tierIndex !== "number" || tierIndex < 0) {
     return NextResponse.json(
-      { error: "Invalid tierIndex", message: "tierIndex must be a non-negative number" },
-      { status: 400 }
+      {
+        error: "Invalid tierIndex",
+        message: "tierIndex must be a non-negative number",
+      },
+      { status: 400 },
     );
   }
 
@@ -42,7 +53,7 @@ export function handleReservationError(error: unknown): NextResponse {
   if (!(error instanceof Error)) {
     return NextResponse.json(
       { error: "Failed to reserve tickets", message: "Unknown error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -52,7 +63,7 @@ export function handleReservationError(error: unknown): NextResponse {
   if (message.includes("Only") && message.includes("available")) {
     return NextResponse.json(
       { error: "Insufficient tickets", message },
-      { status: 409 }
+      { status: 409 },
     );
   }
 
@@ -60,7 +71,7 @@ export function handleReservationError(error: unknown): NextResponse {
   if (message.includes("currently being processed")) {
     return NextResponse.json(
       { error: "Event locked", message },
-      { status: 423 }
+      { status: 423 },
     );
   }
 
@@ -68,13 +79,12 @@ export function handleReservationError(error: unknown): NextResponse {
   if (message.includes("must be") || message.includes("exceeds")) {
     return NextResponse.json(
       { error: "Validation error", message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   return NextResponse.json(
     { error: "Failed to reserve tickets", message },
-    { status: 500 }
+    { status: 500 },
   );
 }
-

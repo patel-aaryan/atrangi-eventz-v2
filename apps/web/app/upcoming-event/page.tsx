@@ -9,7 +9,7 @@ import {
   UpcomingEventRules,
   UpcomingEventTicketsCTA,
   UpcomingEventEmptyState,
-  ScrollExpandMedia
+  ScrollExpandMedia,
 } from "@/components/upcoming-event";
 
 export default function UpcomingEventPage() {

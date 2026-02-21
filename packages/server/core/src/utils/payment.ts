@@ -9,7 +9,7 @@ function isNonEmptyString(value: unknown): value is string {
  * Ensures we persist `stripeChargeId` even when Stripe.js doesn't expose all fields.
  */
 export async function normalizePaymentInfo(
-  paymentInfo: Record<string, unknown>
+  paymentInfo: Record<string, unknown>,
 ): Promise<Record<string, unknown>> {
   const normalized = { ...paymentInfo };
   const paymentIntentId = normalized.stripePaymentIntentId;
@@ -20,7 +20,10 @@ export async function normalizePaymentInfo(
     const stripeFields =
       await stripeService.getPaymentIntentPersistenceFields(paymentIntentId);
 
-    if (!normalized.stripeChargeId && isNonEmptyString(stripeFields.stripeChargeId)) {
+    if (
+      !normalized.stripeChargeId &&
+      isNonEmptyString(stripeFields.stripeChargeId)
+    ) {
       normalized.stripeChargeId = stripeFields.stripeChargeId;
     }
 
@@ -38,15 +41,19 @@ export async function normalizePaymentInfo(
       normalized.stripeCustomerId = stripeFields.stripeCustomerId;
     }
 
-    if (!normalized.paymentStatus && isNonEmptyString(stripeFields.paymentStatus)) {
+    if (
+      !normalized.paymentStatus &&
+      isNonEmptyString(stripeFields.paymentStatus)
+    ) {
       normalized.paymentStatus = stripeFields.paymentStatus;
     }
   } catch (stripeError) {
     // Don't fail purchase if Stripe retrieval fails; we'll still have PaymentIntent id for reconciliation.
-    console.error("Failed to retrieve PaymentIntent for backfill:", stripeError);
+    console.error(
+      "Failed to retrieve PaymentIntent for backfill:",
+      stripeError,
+    );
   }
 
   return normalized;
 }
-
-

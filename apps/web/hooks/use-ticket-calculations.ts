@@ -32,7 +32,7 @@ export function useTicketCalculations({
   const ticketTypes = useMemo(() => {
     if (!currentEvent?.ticket_tiers) return [];
     return currentEvent.ticket_tiers.map((tier, index) =>
-      transformTicketTier(tier, index)
+      transformTicketTier(tier, index),
     );
   }, [currentEvent]);
 
@@ -66,7 +66,7 @@ export function useTicketCalculations({
   const subtotal = useMemo(() => {
     return ticketSelections.reduce(
       (sum, selection) => sum + selection.quantity * selection.pricePerTicket,
-      0
+      0,
     );
   }, [ticketSelections]);
 
@@ -77,4 +77,3 @@ export function useTicketCalculations({
     ticketTypes,
   };
 }
-

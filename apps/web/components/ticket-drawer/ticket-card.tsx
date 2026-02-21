@@ -46,9 +46,7 @@ export function TicketCard({
             )}
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold">
-              ${ticket.price.toFixed(2)}
-            </div>
+            <div className="text-2xl font-bold">${ticket.price.toFixed(2)}</div>
           </div>
         </div>
 
@@ -84,4 +82,3 @@ export function TicketCard({
     </motion.div>
   );
 }
-

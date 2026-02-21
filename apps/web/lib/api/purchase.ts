@@ -18,7 +18,7 @@ interface ApiErrorResponse {
  * @returns Order details and issued tickets
  */
 export async function completePurchase(
-  payload: CompletePurchaseData
+  payload: CompletePurchaseData,
 ): Promise<CompletePurchaseResult> {
   const response = await fetch("/api/complete-purchase", {
     method: "POST",
@@ -29,19 +29,19 @@ export async function completePurchase(
   if (!response.ok) {
     const error: ApiErrorResponse = await response
       .json()
-      .catch(() => ({ message: "We couldn't complete your purchase. Please try again." }));
+      .catch(() => ({
+        message: "We couldn't complete your purchase. Please try again.",
+      }));
     throw new Error(
       error.message ||
-      error.error ||
-      "We couldn't complete your purchase. Please try again."
+        error.error ||
+        "We couldn't complete your purchase. Please try again.",
     );
   }
 
   const data = (await response.json()) as
     | (CompletePurchaseResult & { success?: boolean })
-    | { success?: boolean } & CompletePurchaseResult;
+    | ({ success?: boolean } & CompletePurchaseResult);
 
   return data;
 }
-
-

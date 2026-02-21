@@ -44,7 +44,7 @@ interface GetReservationsResponse {
  * @returns The reservation ID
  */
 export async function reserveTickets(
-  params: ReserveTicketsRequest
+  params: ReserveTicketsRequest,
 ): Promise<string> {
   const response = await fetch("/api/reserve", {
     method: "POST",
@@ -57,7 +57,7 @@ export async function reserveTickets(
       .json()
       .catch(() => ({ error: "Failed to reserve tickets" }));
     throw new Error(
-      error.message || error.error || "Failed to reserve tickets"
+      error.message || error.error || "Failed to reserve tickets",
     );
   }
 
@@ -71,13 +71,13 @@ export async function reserveTickets(
  * @returns Array of reservations with tierIndex and quantity
  */
 export async function getReservations(
-  eventId: string
+  eventId: string,
 ): Promise<Array<{ tierIndex: number; quantity: number }>> {
   if (!eventId) throw new Error("Event ID is required to fetch reservations");
 
   const response = await fetch(
     `/api/reserve?eventId=${encodeURIComponent(eventId)}`,
-    { method: "GET", headers: { "Content-Type": "application/json" } }
+    { method: "GET", headers: { "Content-Type": "application/json" } },
   );
 
   if (!response.ok) {
@@ -85,7 +85,7 @@ export async function getReservations(
       .json()
       .catch(() => ({ error: "Failed to fetch reservations" }));
     throw new Error(
-      error.message || error.error || "Failed to fetch reservations"
+      error.message || error.error || "Failed to fetch reservations",
     );
   }
 
@@ -100,7 +100,7 @@ export async function getReservations(
  * @returns Reservation IDs and createdAt timestamp
  */
 export async function reserveTicketsBatch(
-  params: BatchReserveTicketsRequest
+  params: BatchReserveTicketsRequest,
 ): Promise<ReservationResult> {
   const response = await fetch("/api/reserve", {
     method: "POST",
@@ -113,7 +113,7 @@ export async function reserveTicketsBatch(
       .json()
       .catch(() => ({ error: "Failed to reserve tickets" }));
     throw new Error(
-      error.message || error.error || "Failed to reserve tickets"
+      error.message || error.error || "Failed to reserve tickets",
     );
   }
 

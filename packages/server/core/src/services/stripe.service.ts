@@ -21,7 +21,7 @@ class StripeService {
    * @returns Client secret and payment intent ID
    */
   async createPaymentIntent(
-    params: CreatePaymentIntentParams
+    params: CreatePaymentIntentParams,
   ): Promise<CreatePaymentIntentResult> {
     const { amount, eventId, sessionId, eventTitle, ticketSelections } = params;
 
@@ -61,7 +61,7 @@ class StripeService {
    * @param paymentIntentId Stripe Payment Intent ID
    */
   async getPaymentIntent(
-    paymentIntentId: string
+    paymentIntentId: string,
   ): Promise<Stripe.PaymentIntent> {
     return await this.stripe.paymentIntents.retrieve(paymentIntentId);
   }
@@ -103,7 +103,7 @@ class StripeService {
    * @param paymentIntentId Stripe Payment Intent ID
    */
   async cancelPaymentIntent(
-    paymentIntentId: string
+    paymentIntentId: string,
   ): Promise<Stripe.PaymentIntent> {
     return await this.stripe.paymentIntents.cancel(paymentIntentId);
   }

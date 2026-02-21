@@ -47,7 +47,9 @@ export function MobileNav() {
           if (navigatedFromSheetRef.current) {
             navigatedFromSheetRef.current = false;
             e.preventDefault();
-            document.getElementById("main-content")?.focus({ preventScroll: true });
+            document
+              .getElementById("main-content")
+              ?.focus({ preventScroll: true });
           }
         }}
       >

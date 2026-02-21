@@ -18,4 +18,3 @@ export function MobileSummary({ total }: Readonly<MobileSummaryProps>) {
     </div>
   );
 }
-

@@ -1,6 +1,13 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, Input, Label } from "@atrangi/ui";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+} from "@atrangi/ui";
 import { Mail, Phone } from "lucide-react";
 import type {
   UseFormRegister,

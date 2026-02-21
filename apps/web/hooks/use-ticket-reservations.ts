@@ -23,7 +23,7 @@ export function useTicketReservations({
   setSelectedTickets,
 }: UseTicketReservationsProps): UseTicketReservationsReturn {
   const queryClient = useQueryClient();
-  
+
   // Track if we've already fetched reservations for the current event
   const fetchedEventIdRef = useRef<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);

@@ -1,4 +1,4 @@
-import { Button } from "@atrangi/ui"
+import { Button } from "@atrangi/ui";
 
 export default function Page() {
   return (
@@ -8,5 +8,5 @@ export default function Page() {
         <Button size="sm">Button</Button>
       </div>
     </div>
-  )
+  );
 }

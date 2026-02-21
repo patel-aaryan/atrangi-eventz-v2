@@ -159,8 +159,10 @@ export const ScrollExpandMedia = ({
   const targetWidth = isMobileState ? 390 : 1920;
   const targetHeight = targetWidth * (9 / 16); // Maintain 16:9 ratio
 
-  const mediaWidth = initialWidth + scrollProgress * (targetWidth - initialWidth);
-  const mediaHeight = initialHeight + scrollProgress * (targetHeight - initialHeight);
+  const mediaWidth =
+    initialWidth + scrollProgress * (targetWidth - initialWidth);
+  const mediaHeight =
+    initialHeight + scrollProgress * (targetHeight - initialHeight);
 
   return (
     <div
@@ -183,7 +185,9 @@ export const ScrollExpandMedia = ({
                 style={{
                   width: `${mediaWidth}px`,
                   height: `${mediaHeight}px`,
-                  ...(isMobileState ? {} : { maxWidth: "72vw", maxHeight: "85vh" }),
+                  ...(isMobileState
+                    ? {}
+                    : { maxWidth: "72vw", maxHeight: "85vh" }),
                 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

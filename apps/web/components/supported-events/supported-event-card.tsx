@@ -62,18 +62,17 @@ export function SupportedEventCard({
             <motion.div
               className="absolute -inset-px flex flex-col items-end justify-end pb-6 pr-6 pl-12 pt-12 bg-secondary/60 rounded-xl"
               style={{
-                clipPath:
-                  "polygon(0 100%, 0 70%, 100% 50%, 100% 100%)",
+                clipPath: "polygon(0 100%, 0 70%, 100% 50%, 100% 100%)",
               }}
               initial={isMobile ? false : { opacity: 0, x: "100%", y: "100%" }}
               animate={
                 isMobile
                   ? { opacity: 1, x: "0%", y: "0%" }
                   : {
-                    opacity: hovered ? 1 : 0,
-                    x: hovered ? "0%" : "100%",
-                    y: hovered ? "0%" : "100%",
-                  }
+                      opacity: hovered ? 1 : 0,
+                      x: hovered ? "0%" : "100%",
+                      y: hovered ? "0%" : "100%",
+                    }
               }
               transition={
                 isMobile
@@ -86,11 +85,7 @@ export function SupportedEventCard({
                   {item.name}
                 </h3>
                 <p className="text-white/90 text-sm mb-4">{item.monthYear}</p>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  asChild
-                >
+                <Button size="sm" variant="outline" asChild>
                   <span>View More</span>
                 </Button>
               </div>

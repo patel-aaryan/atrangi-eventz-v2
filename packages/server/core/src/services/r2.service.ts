@@ -68,7 +68,7 @@ class R2Service {
       });
 
       console.log(
-        `✅ [R2] Found ${images.length} images for event: ${eventSlug}`
+        `✅ [R2] Found ${images.length} images for event: ${eventSlug}`,
       );
       return images;
     } catch (error) {
@@ -85,7 +85,7 @@ class R2Service {
     try {
       const images = await this.listEventImages(eventSlug);
       const banner = images.find((img) =>
-        img.name.toLowerCase().includes("title")
+        img.name.toLowerCase().includes("title"),
       );
       return banner?.url || null;
     } catch (error) {

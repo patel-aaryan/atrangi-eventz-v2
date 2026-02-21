@@ -1,6 +1,9 @@
 import { mg } from "@atrangi/infra/mailgun";
 import { render } from "@react-email/render";
-import { TicketConfirmationEmail, ContactFormEmail } from "@atrangi/core/emails";
+import {
+  TicketConfirmationEmail,
+  ContactFormEmail,
+} from "@atrangi/core/emails";
 import { pdfService } from "@atrangi/core/services/pdf";
 import type { EmailOptions } from "@atrangi/core/types";
 
@@ -26,17 +29,17 @@ class EmailService {
         ...(options.html && { html: options.html }),
         ...(options.attachments &&
           options.attachments.length > 0 && {
-          attachment: options.attachments.map((attachment) => ({
-            filename: attachment.filename,
-            data: attachment.data,
-            contentType: attachment.contentType,
-          })),
-        }),
+            attachment: options.attachments.map((attachment) => ({
+              filename: attachment.filename,
+              data: attachment.data,
+              contentType: attachment.contentType,
+            })),
+          }),
       };
 
       const response = await mg.messages.create(
         this.domain,
-        messageData as Parameters<typeof mg.messages.create>[1]
+        messageData as Parameters<typeof mg.messages.create>[1],
       );
       console.log("Email sent successfully:", response);
     } catch (error) {
@@ -82,13 +85,13 @@ class EmailService {
         orderTotal={data.orderTotal}
         buyerName={data.buyerName}
         appUrl={appUrl}
-      />
+      />,
     );
 
     const ticketsList = data.tickets
       .map(
         (t, i) =>
-          `${i + 1}. ${t.tierName} - ${t.attendeeName} (${t.ticketCode})`
+          `${i + 1}. ${t.tierName} - ${t.attendeeName} (${t.ticketCode})`,
       )
       .join("\n");
 
@@ -114,8 +117,7 @@ class EmailService {
     email: string;
     message: string;
   }): Promise<void> {
-    const recipientEmail =
-      process.env.NEXT_PUBLIC_EMAIL;
+    const recipientEmail = process.env.NEXT_PUBLIC_EMAIL;
 
     if (!recipientEmail) {
       console.error("NEXT_PUBLIC_EMAIL is not set in env");
@@ -127,7 +129,7 @@ class EmailService {
         name={data.name}
         email={data.email}
         message={data.message}
-      />
+      />,
     );
 
     const text = `New Contact Form Submission\n\nFrom: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}\n\n---\nSent from Atrangi Eventz Website Contact Form`;

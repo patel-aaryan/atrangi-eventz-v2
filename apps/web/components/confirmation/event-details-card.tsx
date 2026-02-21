@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, Separator } from "@atrangi/ui";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Separator,
+} from "@atrangi/ui";
 import { Calendar, MapPin, Sparkles, Ticket } from "lucide-react";
 
 interface TicketItem {

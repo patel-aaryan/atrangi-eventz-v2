@@ -61,7 +61,7 @@ export function TicketProvider({ children }: TicketProviderProps) {
   // State
   const [isOpen, setIsOpen] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<UpcomingEventItem | null>(
-    null
+    null,
   );
   const [selectedTickets, setSelectedTickets] = useState<
     Record<string, number>
@@ -157,7 +157,7 @@ export function TicketProvider({ children }: TicketProviderProps) {
       totalTickets,
       subtotal,
       ticketSelections,
-    ]
+    ],
   );
 
   return (

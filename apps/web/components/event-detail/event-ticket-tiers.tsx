@@ -53,8 +53,9 @@ export function EventTicketTiers({
                 transition={{ duration: 0.3, delay: index * 0.1 }}
               >
                 <Card
-                  className={`relative overflow-hidden h-full ${isSoldOut ? "opacity-75" : ""
-                    }`}
+                  className={`relative overflow-hidden h-full ${
+                    isSoldOut ? "opacity-75" : ""
+                  }`}
                 >
                   <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary to-highlight" />
 

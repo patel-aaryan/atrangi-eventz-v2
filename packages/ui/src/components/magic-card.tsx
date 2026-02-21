@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import React, { useCallback, useEffect } from "react"
-import { motion, useMotionTemplate, useMotionValue } from "motion/react"
+import React, { useCallback, useEffect } from "react";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 
-import { cn } from "../lib/utils"
+import { cn } from "../lib/utils";
 
 interface MagicCardProps {
-  children?: React.ReactNode
-  className?: string
-  gradientSize?: number
-  gradientColor?: string
-  gradientOpacity?: number
-  gradientFrom?: string
-  gradientTo?: string
+  children?: React.ReactNode;
+  className?: string;
+  gradientSize?: number;
+  gradientColor?: string;
+  gradientOpacity?: number;
+  gradientFrom?: string;
+  gradientTo?: string;
 }
 
 export function MagicCard({
@@ -24,49 +24,49 @@ export function MagicCard({
   gradientFrom = "var(--highlight)",
   gradientTo = "var(--primary)",
 }: Readonly<MagicCardProps>) {
-  const mouseX = useMotionValue(-gradientSize)
-  const mouseY = useMotionValue(-gradientSize)
+  const mouseX = useMotionValue(-gradientSize);
+  const mouseY = useMotionValue(-gradientSize);
   const reset = useCallback(() => {
-    mouseX.set(-gradientSize)
-    mouseY.set(-gradientSize)
-  }, [gradientSize, mouseX, mouseY])
+    mouseX.set(-gradientSize);
+    mouseY.set(-gradientSize);
+  }, [gradientSize, mouseX, mouseY]);
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect()
-      mouseX.set(e.clientX - rect.left)
-      mouseY.set(e.clientY - rect.top)
+      const rect = e.currentTarget.getBoundingClientRect();
+      mouseX.set(e.clientX - rect.left);
+      mouseY.set(e.clientY - rect.top);
     },
-    [mouseX, mouseY]
-  )
+    [mouseX, mouseY],
+  );
 
   useEffect(() => {
-    reset()
-  }, [reset])
+    reset();
+  }, [reset]);
 
   useEffect(() => {
     const handleGlobalPointerOut = (e: PointerEvent) => {
       if (!e.relatedTarget) {
-        reset()
+        reset();
       }
-    }
+    };
 
     const handleVisibility = () => {
       if (document.visibilityState !== "visible") {
-        reset()
+        reset();
       }
-    }
+    };
 
-    globalThis.addEventListener("pointerout", handleGlobalPointerOut)
-    globalThis.addEventListener("blur", reset)
-    document.addEventListener("visibilitychange", handleVisibility)
+    globalThis.addEventListener("pointerout", handleGlobalPointerOut);
+    globalThis.addEventListener("blur", reset);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      globalThis.removeEventListener("pointerout", handleGlobalPointerOut)
-      globalThis.removeEventListener("blur", reset)
-      document.removeEventListener("visibilitychange", handleVisibility)
-    }
-  }, [reset])
+      globalThis.removeEventListener("pointerout", handleGlobalPointerOut);
+      globalThis.removeEventListener("blur", reset);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [reset]);
 
   return (
     <div
@@ -99,5 +99,5 @@ export function MagicCard({
       />
       <div className="relative">{children}</div>
     </div>
-  )
+  );
 }

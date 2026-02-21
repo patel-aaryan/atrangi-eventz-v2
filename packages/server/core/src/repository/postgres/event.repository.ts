@@ -121,7 +121,7 @@ export class EventRepository {
    * Returns current ticket counts and sold status
    */
   async getTicketAvailability(
-    eventId: string
+    eventId: string,
   ): Promise<TicketAvailability | null> {
     const query = `
       SELECT 
@@ -148,7 +148,7 @@ export class EventRepository {
       tickets_remaining: row.tickets_remaining || 0,
       is_sold_out: row.is_sold_out || false,
       ticket_tiers_remaining: ticketTiers.map(
-        (tier: any) => tier.remaining || 0
+        (tier: any) => tier.remaining || 0,
       ),
     };
   }

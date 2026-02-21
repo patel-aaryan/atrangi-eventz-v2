@@ -19,7 +19,7 @@ interface TierAvailability {
  * Validate batch reservation inputs
  */
 export function validateBatchReservationInputs(
-  reservations: Reservation[]
+  reservations: Reservation[],
 ): void {
   if (!reservations || reservations.length === 0) {
     throw new Error("At least one reservation is required");
@@ -37,7 +37,7 @@ export function validateBatchReservationInputs(
  */
 export function validateTiersAndCapacities(
   reservations: Reservation[],
-  ticketTiers: TicketTier[]
+  ticketTiers: TicketTier[],
 ): TierValidation[] {
   const tierValidations: TierValidation[] = [];
 
@@ -51,7 +51,7 @@ export function validateTiersAndCapacities(
       throw new Error(`Tier at index ${reservation.tierIndex} does not exist`);
     if (reservation.quantity > tier.remaining) {
       throw new Error(
-        `Requested quantity (${reservation.quantity}) exceeds tier remaining tickets (${tier.remaining}) for tier ${reservation.tierIndex}`
+        `Requested quantity (${reservation.quantity}) exceeds tier remaining tickets (${tier.remaining}) for tier ${reservation.tierIndex}`,
       );
     }
 
@@ -70,7 +70,7 @@ export function validateTiersAndCapacities(
 export function calculateTierAvailability(
   tierValidations: TierValidation[],
   remainingTicketsByTier: number[],
-  allReservations: Array<{ tierIndex: number; quantity: number }>
+  allReservations: Array<{ tierIndex: number; quantity: number }>,
 ): Map<number, TierAvailability> {
   const tierAvailability = new Map<number, TierAvailability>();
 
@@ -96,7 +96,7 @@ export function calculateTierAvailability(
  * Group requested reservations by tier and sum quantities
  */
 export function groupReservationsByTier(
-  reservations: Reservation[]
+  reservations: Reservation[],
 ): Map<number, number> {
   const requestedByTier = new Map<number, number>();
 
@@ -113,7 +113,7 @@ export function groupReservationsByTier(
  */
 export function validateAvailability(
   requestedByTier: Map<number, number>,
-  tierAvailability: Map<number, TierAvailability>
+  tierAvailability: Map<number, TierAvailability>,
 ): void {
   for (const [tierIndex, requestedQuantity] of requestedByTier.entries()) {
     const availability = tierAvailability.get(tierIndex);
@@ -125,7 +125,7 @@ export function validateAvailability(
 
     if (requestedQuantity > available) {
       throw new Error(
-        `Only ${available} tickets available for tier ${tierIndex}. Requested: ${requestedQuantity}`
+        `Only ${available} tickets available for tier ${tierIndex}. Requested: ${requestedQuantity}`,
       );
     }
   }

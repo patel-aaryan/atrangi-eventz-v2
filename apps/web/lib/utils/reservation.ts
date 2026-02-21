@@ -6,7 +6,7 @@ import { reservationService } from "@atrangi/core/services/reservation";
  * Validate batch reservation request
  */
 export function validateBatchReservations(
-  reservations: unknown[]
+  reservations: unknown[],
 ): NextResponse | null {
   for (const reservation of reservations) {
     if (
@@ -21,7 +21,7 @@ export function validateBatchReservations(
           message:
             "Each reservation must have tierIndex (number) and quantity (number)",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -37,7 +37,7 @@ export function validateBatchReservations(
           message:
             "Each reservation must have tierIndex (number) and quantity (number)",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -48,7 +48,7 @@ export function validateBatchReservations(
           error: "Invalid tierIndex",
           message: "tierIndex must be a non-negative number",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -58,7 +58,7 @@ export function validateBatchReservations(
           error: "Invalid quantity",
           message: "Quantity must be greater than 0",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
   }
@@ -71,7 +71,7 @@ export function validateBatchReservations(
 export async function handleBatchReservation(
   eventId: string,
   reservations: Array<{ tierIndex: number; quantity: number }>,
-  sessionId: string
+  sessionId: string,
 ): Promise<NextResponse> {
   if (!eventId) {
     return NextResponse.json(
@@ -79,7 +79,7 @@ export async function handleBatchReservation(
         error: "Missing eventId",
         message: "eventId is required for batch reservations",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -95,7 +95,7 @@ export async function handleBatchReservation(
   // Return createdAt timestamp so client can sync reservation timer
   return NextResponse.json(
     { reservationIds: result.reservationIds, createdAt: Date.now() },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
@@ -104,7 +104,7 @@ export async function handleBatchReservation(
  */
 export async function handleSingleReservation(
   body: { eventId?: string; tierIndex?: number; quantity?: number },
-  sessionId: string
+  sessionId: string,
 ): Promise<NextResponse> {
   const validationError = validateReservationRequest(body);
   if (validationError) return validationError;
@@ -121,6 +121,6 @@ export async function handleSingleReservation(
   // Return createdAt timestamp so client can sync reservation timer
   return NextResponse.json(
     { reservationId: result.reservationId, createdAt: Date.now() },
-    { status: 200 }
+    { status: 200 },
   );
 }

@@ -41,7 +41,10 @@ export class SupportedEventRepository {
     return {
       id: row.id,
       name: row.name,
-      event_date: row.event_date instanceof Date ? row.event_date.toISOString().slice(0, 10) : String(row.event_date).slice(0, 10),
+      event_date:
+        row.event_date instanceof Date
+          ? row.event_date.toISOString().slice(0, 10)
+          : String(row.event_date).slice(0, 10),
       image_url: row.image_url,
       social_url: row.social_url,
     };

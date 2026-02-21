@@ -11,7 +11,10 @@ export class QStashCache {
    * Store a QStash message ID for a PaymentIntent
    * Allows cancellation of the scheduled cleanup on successful payment
    */
-  async setMessageId(paymentIntentId: string, messageId: string): Promise<void> {
+  async setMessageId(
+    paymentIntentId: string,
+    messageId: string,
+  ): Promise<void> {
     try {
       const messageKey = `${this.MESSAGE_KEY_PREFIX}${paymentIntentId}`;
       await redis.set(messageKey, messageId, {
@@ -51,4 +54,3 @@ export class QStashCache {
     }
   }
 }
-

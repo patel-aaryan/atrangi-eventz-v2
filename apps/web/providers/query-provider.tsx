@@ -20,7 +20,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
             retry: 1, // Retry failed requests once
           },
         },
-      })
+      }),
   );
 
   return (

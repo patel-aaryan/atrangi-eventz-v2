@@ -1,6 +1,13 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, Badge, Separator } from "@atrangi/ui";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Badge,
+  Separator,
+} from "@atrangi/ui";
 
 interface PaymentSummaryCardProps {
   subtotal: number;

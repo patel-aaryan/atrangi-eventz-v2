@@ -44,7 +44,7 @@ class EventService {
    * Use with getUpcomingEventStatic() to merge cached static + fresh counts.
    */
   async getTicketAvailability(
-    eventId: string
+    eventId: string,
   ): Promise<TicketAvailability | null> {
     return this.eventRepository.getTicketAvailability(eventId);
   }

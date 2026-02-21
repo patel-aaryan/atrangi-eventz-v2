@@ -80,7 +80,7 @@ export class OrderRepository {
    */
   async updateStatus(
     orderId: string,
-    status: "pending" | "confirmed" | "cancelled" | "refunded"
+    status: "pending" | "confirmed" | "cancelled" | "refunded",
   ): Promise<Order> {
     const query = `UPDATE orders SET status = $1 WHERE id = $2 RETURNING *`;
     const result = await pool.query(query, [status, orderId]);

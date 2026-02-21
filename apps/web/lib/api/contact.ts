@@ -23,7 +23,7 @@ interface ApiErrorResponse {
  * @returns Success message
  */
 export async function submitContactForm(
-  data: ContactFormData
+  data: ContactFormData,
 ): Promise<ContactFormResponse> {
   const response = await fetch("/api/contact", {
     method: "POST",
@@ -38,7 +38,7 @@ export async function submitContactForm(
     throw new Error(
       error.message ||
         error.error ||
-        "Failed to send message. Please try again."
+        "Failed to send message. Please try again.",
     );
   }
 

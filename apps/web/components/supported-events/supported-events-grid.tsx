@@ -40,8 +40,8 @@ export function SupportedEventsGrid({
           </span>
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Celebrating the artists and events we&apos;ve partnered with across the
-          Gujarati community.
+          Celebrating the artists and events we&apos;ve partnered with across
+          the Gujarati community.
         </p>
       </motion.div>
 
@@ -53,7 +53,9 @@ export function SupportedEventsGrid({
 
       {error && (
         <div className="text-center py-12 text-destructive">
-          {error instanceof Error ? error.message : "Failed to load supported events."}
+          {error instanceof Error
+            ? error.message
+            : "Failed to load supported events."}
         </div>
       )}
 

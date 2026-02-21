@@ -2,9 +2,7 @@ import dayjs from "dayjs";
 import type { SupportedEvent } from "@atrangi/types";
 import type { SupportedEventItem } from "@/types/supported-event";
 
-export function mapToSupportedEventItem(
-  e: SupportedEvent,
-): SupportedEventItem {
+export function mapToSupportedEventItem(e: SupportedEvent): SupportedEventItem {
   return {
     name: e.name,
     monthYear: dayjs(e.event_date).format("MMMM, YYYY"),

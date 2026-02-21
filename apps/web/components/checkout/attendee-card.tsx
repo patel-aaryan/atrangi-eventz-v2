@@ -1,7 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle, Input, Label, Badge } from "@atrangi/ui";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  Badge,
+} from "@atrangi/ui";
 import { User } from "lucide-react";
 import type {
   UseFormRegister,
@@ -30,7 +38,7 @@ export function AttendeeCard({
   isSubmitted,
 }: Readonly<AttendeeCardProps>) {
   const shouldShowError = (
-    field: keyof CheckoutFormInput["attendees"][number]
+    field: keyof CheckoutFormInput["attendees"][number],
   ) => {
     return isSubmitted || touchedFields?.[field];
   };

@@ -38,7 +38,7 @@ export function OrderSummary({
 }: Readonly<OrderSummaryProps>) {
   const totalTickets = tickets.reduce(
     (sum, ticket) => sum + ticket.quantity,
-    0
+    0,
   );
 
   return (

@@ -9,7 +9,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  Button
+  Button,
 } from "@atrangi/ui";
 import {
   TicketList,
@@ -48,7 +48,7 @@ export function TicketSelectionDrawer({
 
       const newQty = Math.max(
         0,
-        Math.min(currentQty + delta, ticket.maxQuantity, ticket.available)
+        Math.min(currentQty + delta, ticket.maxQuantity, ticket.available),
       );
 
       if (newQty === 0) {

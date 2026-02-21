@@ -37,7 +37,7 @@ export function useTicketCheckout({
           .map(([ticketId, quantity]) => {
             const tierIndex = Number.parseInt(
               ticketId.replace("ticket-", ""),
-              10
+              10,
             );
             return {
               tierIndex,
@@ -58,7 +58,7 @@ export function useTicketCheckout({
             setReservation({
               createdAt: result.createdAt,
               eventId: currentEvent.id,
-            })
+            }),
           );
         }
 
@@ -68,14 +68,13 @@ export function useTicketCheckout({
       } catch (error) {
         console.error("Failed to reserve tickets:", error);
         toast.error(
-          "Failed to reserve tickets. Please try again or contact support if the problem persists."
+          "Failed to reserve tickets. Please try again or contact support if the problem persists.",
         );
         throw error;
       }
     },
-    [currentEvent, router, setSelectedTickets, setIsOpen, dispatch]
+    [currentEvent, router, setSelectedTickets, setIsOpen, dispatch],
   );
 
   return { handleProceedToCheckout };
 }
-

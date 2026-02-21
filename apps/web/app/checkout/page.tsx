@@ -44,7 +44,7 @@ export default function CheckoutPage() {
   const dispatch = useAppDispatch();
   const savedCheckoutData = useAppSelector((state) => state.checkout.formData);
   const storedReservation = useAppSelector(
-    (state) => state.checkout.reservation
+    (state) => state.checkout.reservation,
   );
 
   // Reservation timer hook with persisted start time from when reservation was created
@@ -110,7 +110,7 @@ export default function CheckoutPage() {
         const ticketId = `${selection.ticketId}-${i}`;
         // Try to find saved data for this attendee
         const savedAttendee = savedCheckoutData?.attendees?.find(
-          (a) => a.ticketId === ticketId
+          (a) => a.ticketId === ticketId,
         );
 
         newAttendees.push({

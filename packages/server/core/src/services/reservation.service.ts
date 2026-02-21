@@ -31,7 +31,7 @@ class ReservationService {
    * This method handles locking, availability checking, and reservation creation
    */
   async reserveTickets(
-    params: ReserveTicketsParams
+    params: ReserveTicketsParams,
   ): Promise<ReserveTicketsResult> {
     const { eventId, tierIndex, requestedQuantity, sessionId } = params;
 
@@ -55,7 +55,7 @@ class ReservationService {
 
     if (requestedQuantity > tierRemaining) {
       throw new Error(
-        `Requested quantity (${requestedQuantity}) exceeds tier remaining tickets (${tierRemaining})`
+        `Requested quantity (${requestedQuantity}) exceeds tier remaining tickets (${tierRemaining})`,
       );
     }
 
@@ -64,7 +64,7 @@ class ReservationService {
       await this.reservationCache.acquireLockWithRetry(eventId);
     if (!lockAcquired) {
       throw new Error(
-        "Unable to process your request due to high demand. Please try again in a moment."
+        "Unable to process your request due to high demand. Please try again in a moment.",
       );
     }
 
@@ -90,7 +90,7 @@ class ReservationService {
       // 4. Check if requested quantity is available
       if (requestedQuantity > available) {
         throw new Error(
-          `Only ${available} tickets available. Requested: ${requestedQuantity}`
+          `Only ${available} tickets available. Requested: ${requestedQuantity}`,
         );
       }
 
@@ -99,7 +99,7 @@ class ReservationService {
         eventId,
         sessionId,
         requestedQuantity,
-        tierIndex
+        tierIndex,
       );
 
       return { reservationId };
@@ -115,11 +115,11 @@ class ReservationService {
    */
   async getReservationsBySession(
     eventId: string,
-    sessionId: string
+    sessionId: string,
   ): Promise<Array<{ tierIndex: number; quantity: number }>> {
     const reservations = await this.reservationCache.getReservationsBySession(
       eventId,
-      sessionId
+      sessionId,
     );
     return reservations.map((reservation) => ({
       tierIndex: reservation.tierIndex,
@@ -133,7 +133,7 @@ class ReservationService {
    */
   async clearReservationsForSession(
     eventId: string,
-    sessionId: string
+    sessionId: string,
   ): Promise<void> {
     await this.reservationCache.deleteReservationsBySession(eventId, sessionId);
   }
@@ -144,7 +144,7 @@ class ReservationService {
    * All reservations succeed or all fail
    */
   async reserveTicketsBatch(
-    params: BatchReserveTicketsParams
+    params: BatchReserveTicketsParams,
   ): Promise<BatchReserveTicketsResult> {
     const { eventId, reservations, sessionId } = params;
 
@@ -162,7 +162,7 @@ class ReservationService {
     // Validate all tiers exist and check capacities
     const tierValidations = validateTiersAndCapacities(
       reservations,
-      event.ticket_tiers
+      event.ticket_tiers,
     );
 
     // Acquire lock for the event with retry mechanism
@@ -170,7 +170,7 @@ class ReservationService {
       await this.reservationCache.acquireLockWithRetry(eventId);
     if (!lockAcquired) {
       throw new Error(
-        "Unable to process your request due to high demand. Please try again in a moment."
+        "Unable to process your request due to high demand. Please try again in a moment.",
       );
     }
 
@@ -183,7 +183,9 @@ class ReservationService {
       const remainingTicketsByTier = tierValidations.map((validation) => {
         const t = currentEvent.ticket_tiers[validation.tierIndex];
         if (!t)
-          throw new Error(`Tier at index ${validation.tierIndex} does not exist`);
+          throw new Error(
+            `Tier at index ${validation.tierIndex} does not exist`,
+          );
         return t.remaining;
       });
 
@@ -195,7 +197,7 @@ class ReservationService {
       const tierAvailability = calculateTierAvailability(
         tierValidations,
         remainingTicketsByTier,
-        allReservations
+        allReservations,
       );
 
       // Group requested reservations by tier
@@ -208,7 +210,7 @@ class ReservationService {
       const reservationIds = await this.reservationCache.createReservations(
         eventId,
         sessionId,
-        reservations
+        reservations,
       );
 
       return { reservationIds };

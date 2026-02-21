@@ -34,7 +34,9 @@ export default function RootLayout({
         <AppProviders>
           <Navbar />
           <UpcomingEventBanner />
-          <main id="main-content" tabIndex={-1}>{children}</main>
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
           <Footer />
         </AppProviders>
       </body>

@@ -26,12 +26,12 @@ export default async function EventDetailPage({
 
   // Find banner image from gallery
   const bannerImage = images.find((img) =>
-    img.name.toLowerCase().includes("title")
+    img.name.toLowerCase().includes("title"),
   );
 
   // Filter out banner from gallery display
   const galleryImages = images.filter(
-    (img) => !img.name.toLowerCase().includes("title")
+    (img) => !img.name.toLowerCase().includes("title"),
   );
 
   return (

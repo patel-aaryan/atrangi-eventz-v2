@@ -6,7 +6,7 @@ import type { TicketTier } from "@atrangi/types";
  */
 export function transformTicketTier(
   tier: TicketTier,
-  index: number
+  index: number,
 ): TicketType {
   const available = tier.remaining;
   return {
