@@ -18,7 +18,6 @@ const ENABLE_TICKETING = process.env.NEXT_PUBLIC_ENABLE_TICKETING === "true"; //
 
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/#about" },
   { name: "Past Events", href: "/past-events" },
   { name: "Supported Events", href: "/supported-events" },
   // TODO: REMOVE THIS IN NEXT RELEASE
