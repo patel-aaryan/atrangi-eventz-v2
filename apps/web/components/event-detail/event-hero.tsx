@@ -134,8 +134,8 @@ export function EventHero({ event, bannerUrl }: Readonly<EventHeroProps>) {
 
             {/* Time */}
             <div className="flex items-center gap-3 bg-card/80 backdrop-blur-sm rounded-lg p-4 border">
-              <div className="p-2 rounded-lg bg-pink-500/10">
-                <Clock className="w-5 h-5 text-pink-500" />
+              <div className="p-2 rounded-lg bg-highlight/10">
+                <Clock className="w-5 h-5 text-highlight" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Time</p>
@@ -147,8 +147,8 @@ export function EventHero({ event, bannerUrl }: Readonly<EventHeroProps>) {
 
             {/* Location */}
             <div className="flex items-center gap-3 bg-card/80 backdrop-blur-sm rounded-lg p-4 border md:col-span-2">
-              <div className="p-2 rounded-lg bg-highlight/10">
-                <MapPin className="w-5 h-5 text-highlight" />
+              <div className="p-2 rounded-lg bg-pink-500/10">
+                <MapPin className="w-5 h-5 text-pink-500" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-xs text-muted-foreground">Location</p>

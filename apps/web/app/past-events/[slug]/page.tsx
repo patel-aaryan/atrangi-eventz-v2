@@ -1,36 +1,28 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 import { ExternalLink } from "lucide-react";
-import { getEventBySlug } from "@/lib/api/events";
+import { getEventBySlug, getEventImages } from "@/lib/cache/events";
 import {
   EventHero,
   EventGallery,
-  EventDetailSkeleton,
   EventNotFound,
 } from "@/components/event-detail";
 import { Button } from "@atrangi/ui";
 
-export default function EventDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+export default async function EventDetailPage({
+  params,
+}: Readonly<{
+  params: Promise<{ slug: string }>;
+}>) {
+  const { slug } = await params;
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["event", slug],
-    queryFn: () => getEventBySlug(slug),
-    enabled: !!slug,
-  });
+  const [event, images] = await Promise.all([
+    getEventBySlug(slug),
+    getEventImages(slug),
+  ]);
 
-  if (isLoading) return <EventDetailSkeleton />;
-
-  if (error || !data) {
-    const errorMessage = error instanceof Error ? error.message : undefined;
-    return <EventNotFound message={errorMessage} />;
+  if (!event) {
+    return <EventNotFound message="Event not found" />;
   }
-
-  const { event, images } = data;
 
   // Find banner image from gallery
   const bannerImage = images.find((img) =>

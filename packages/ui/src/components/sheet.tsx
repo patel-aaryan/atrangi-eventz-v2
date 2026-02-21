@@ -5,7 +5,26 @@ import { X } from "lucide-react";
 
 import { cn } from "../lib/utils";
 
-const Sheet = SheetPrimitive.Root;
+type SheetProps = React.ComponentProps<typeof SheetPrimitive.Root> & {
+  /** When this value changes (e.g. route pathname), the sheet will close. Pass from usePathname() in Next.js for close-on-navigation. */
+  pathname?: string;
+};
+
+function Sheet({ pathname, onOpenChange, ...props }: SheetProps) {
+  const prevPathnameRef = React.useRef<string | undefined>(undefined);
+  React.useEffect(() => {
+    if (pathname === undefined) return;
+    if (
+      prevPathnameRef.current !== undefined &&
+      prevPathnameRef.current !== pathname
+    ) {
+      onOpenChange?.(false);
+    }
+    prevPathnameRef.current = pathname;
+  }, [pathname, onOpenChange]);
+  return <SheetPrimitive.Root onOpenChange={onOpenChange} {...props} />;
+}
+Sheet.displayName = "Sheet";
 
 const SheetTrigger = SheetPrimitive.Trigger;
 

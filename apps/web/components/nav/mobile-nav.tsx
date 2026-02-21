@@ -34,7 +34,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <Sheet open={isOpen} onOpenChange={setIsOpen} pathname={pathname}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" aria-label="Toggle menu">
           <Menu className="h-6 w-6" />

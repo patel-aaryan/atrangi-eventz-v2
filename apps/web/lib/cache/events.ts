@@ -4,9 +4,10 @@ import type {
   PastEventListItem,
   UpcomingEventStatic,
   EventDetail,
+  GalleryImage,
 } from "@atrangi/types";
 
-const PAST_EVENTS_TTL = 86400; // 1 day in seconds
+const PAST_EVENTS_TTL = 8; // 1 day in seconds
 const UPCOMING_EVENTS_TTL = 3600; // 1 hour in seconds
 
 /**
@@ -39,6 +40,17 @@ export async function getEventBySlug(
   return unstable_cache(
     () => eventService.getEventBySlug(slug),
     ["event-by-slug", slug],
+    { revalidate: PAST_EVENTS_TTL },
+  )();
+}
+
+/**
+ * Cached gallery images for an event.
+ */
+export async function getEventImages(slug: string): Promise<GalleryImage[]> {
+  return unstable_cache(
+    () => eventService.getEventImages(slug),
+    ["event-images", slug],
     { revalidate: PAST_EVENTS_TTL },
   )();
 }
