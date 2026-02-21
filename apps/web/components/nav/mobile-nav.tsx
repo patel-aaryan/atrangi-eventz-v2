@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import {
@@ -31,6 +31,7 @@ const NAV_ITEMS = [
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const navigatedFromSheetRef = useRef(false);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen} pathname={pathname}>
@@ -39,7 +40,17 @@ export function MobileNav() {
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-75 sm:w-100">
+      <SheetContent
+        side="right"
+        className="w-75 sm:w-100"
+        onCloseAutoFocus={(e) => {
+          if (navigatedFromSheetRef.current) {
+            navigatedFromSheetRef.current = false;
+            e.preventDefault();
+            document.getElementById("main-content")?.focus({ preventScroll: true });
+          }
+        }}
+      >
         <SheetHeader>
           <SheetTitle className="text-left">
             <span className="text-2xl font-bold text-primary">
@@ -52,11 +63,14 @@ export function MobileNav() {
             <Link
               key={item.name}
               href={item.href}
-              onClick={(e) =>
+              onClick={(e) => {
+                if (!item.href.includes("#")) {
+                  navigatedFromSheetRef.current = true;
+                }
                 handleHashNavigation(e, item.href, pathname, () =>
                   setIsOpen(false),
-                )
-              }
+                );
+              }}
               className="text-foreground/80 hover:text-foreground transition-colors font-medium"
             >
               <Button
