@@ -15,6 +15,7 @@ import { NavEmptyCartState } from "./nav-empty-cart-state";
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { useReservationTimer } from "@/hooks/use-reservation-timer";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CartItem {
   tierIndex: number;
@@ -27,20 +28,25 @@ const RESERVATION_DURATION = 10 * 60 * 1000; // 10 minutes in milliseconds
 const REFRESH_INTERVAL = 30 * 1000; // Refresh every 30 seconds
 
 export function ShoppingCartDropdown() {
+  const queryClient = useQueryClient();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const refreshIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get reservation data from Redux store
   const storedReservation = useAppSelector(
-    (state) => state.checkout.reservation
+    (state) => state.checkout.reservation,
   );
 
   const loadCartData = useCallback(async () => {
     try {
       setIsLoading(true);
       // Fetch upcoming event
-      const upcomingEvent = await getUpcomingEvent();
+      const upcomingEvent = await queryClient.fetchQuery({
+        queryKey: ["upcoming-event"],
+        queryFn: getUpcomingEvent,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+      });
 
       if (!upcomingEvent) {
         setCartItems([]);
@@ -104,7 +110,7 @@ export function ShoppingCartDropdown() {
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
 
   const handleOpenChange = (open: boolean) => {
@@ -156,21 +162,24 @@ export function ShoppingCartDropdown() {
                 {/* Reservation Timer Notice */}
                 {storedReservation?.createdAt && !isExpired ? (
                   <div
-                    className={`flex items-start gap-2 p-3 rounded-lg border ${isWarning
-                      ? "bg-destructive/10 border-destructive/30"
-                      : "bg-primary/5 border-primary/20"
-                      }`}
+                    className={`flex items-start gap-2 p-3 rounded-lg border ${
+                      isWarning
+                        ? "bg-destructive/10 border-destructive/30"
+                        : "bg-primary/5 border-primary/20"
+                    }`}
                   >
                     <Clock
-                      className={`h-4 w-4 mt-0.5 shrink-0 ${isWarning
-                        ? "text-destructive animate-pulse"
-                        : "text-primary"
-                        }`}
+                      className={`h-4 w-4 mt-0.5 shrink-0 ${
+                        isWarning
+                          ? "text-destructive animate-pulse"
+                          : "text-primary"
+                      }`}
                     />
                     <div className="flex-1">
                       <p
-                        className={`text-xs ${isWarning ? "text-destructive" : "text-foreground"
-                          }`}
+                        className={`text-xs ${
+                          isWarning ? "text-destructive" : "text-foreground"
+                        }`}
                       >
                         {isWarning ? (
                           <>

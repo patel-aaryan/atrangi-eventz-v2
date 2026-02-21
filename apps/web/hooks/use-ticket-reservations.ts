@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { UpcomingEventItem } from "@atrangi/types";
 import { getReservations } from "@/lib/api/tickets";
 import { getUpcomingEvent } from "@/lib/api/events";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UseTicketReservationsProps {
   currentEvent: UpcomingEventItem | null;
@@ -21,6 +22,8 @@ export function useTicketReservations({
   setCurrentEvent,
   setSelectedTickets,
 }: UseTicketReservationsProps): UseTicketReservationsReturn {
+  const queryClient = useQueryClient();
+  
   // Track if we've already fetched reservations for the current event
   const fetchedEventIdRef = useRef<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +38,11 @@ export function useTicketReservations({
       // If no event is set, try to fetch the upcoming event
       if (event === null) {
         try {
-          event = await getUpcomingEvent();
+          event = await queryClient.fetchQuery({
+            queryKey: ["upcoming-event"],
+            queryFn: getUpcomingEvent,
+            staleTime: 5 * 60 * 1000, // 5 minutes
+          });
           if (!event) {
             setIsLoading(false);
             return;
