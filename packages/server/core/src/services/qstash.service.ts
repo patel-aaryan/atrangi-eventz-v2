@@ -40,7 +40,8 @@ class QStashService {
    */
   async cancelPaymentCleanup(paymentIntentId: string): Promise<boolean> {
     try {
-      const messageId = await this.qstashCache.getMessageId(paymentIntentId);
+      // Use pipeline for atomic get & delete to reduce Redis roundtrips
+      const messageId = await this.qstashCache.getAndDeleteMessageId(paymentIntentId);
 
       if (!messageId) {
         console.log(
@@ -50,8 +51,6 @@ class QStashService {
       }
 
       await qstash.messages.delete(messageId);
-
-      await this.qstashCache.deleteMessageId(paymentIntentId);
 
       console.log(
         `[QStash] Cancelled cleanup for PaymentIntent ${paymentIntentId}, messageId: ${messageId}`,

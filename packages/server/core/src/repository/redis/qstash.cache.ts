@@ -53,4 +53,25 @@ export class QStashCache {
       // Don't throw - cache cleanup failures shouldn't break the app
     }
   }
+
+  /**
+   * Atomically get and delete the QStash message ID using a pipeline
+   * Reduces Redis roundtrips during webhook processing
+   */
+  async getAndDeleteMessageId(paymentIntentId: string): Promise<string | null> {
+    try {
+      const messageKey = `${this.MESSAGE_KEY_PREFIX}${paymentIntentId}`;
+      
+      const pipeline = redis.pipeline();
+      pipeline.get<string>(messageKey);
+      pipeline.del(messageKey);
+      
+      const results = await pipeline.exec();
+      // results[0] is the result of GET, results[1] is result of DEL
+      return (results[0] as string) || null;
+    } catch (error) {
+      console.error("[QStash Cache] Error atomic get/delete message ID:", error);
+      return null;
+    }
+  }
 }

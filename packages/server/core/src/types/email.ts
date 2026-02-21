@@ -12,3 +12,26 @@ export interface EmailOptions {
   from?: string;
   attachments?: EmailAttachment[];
 }
+
+export interface ContactData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export interface TicketConfirmationData {
+  to: string;
+  orderNumber: string;
+  eventTitle: string;
+  eventDate: string;
+  eventLocation: string;
+  tickets: Array<{
+    ticketCode: string;
+    attendeeName: string;
+    tierName: string;
+    price: number;
+    qrCodeData: string;
+  }>;
+  orderTotal: number;
+  buyerName: string;
+}

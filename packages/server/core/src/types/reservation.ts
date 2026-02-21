@@ -1,8 +1,7 @@
-export interface ReservationData {
-  sessionId: string;
+export type ReservationData = Array<{
   quantity: number;
   tierIndex: number;
-}
+}>;
 
 export interface ReserveTicketsParams {
   eventId: string;
@@ -22,5 +21,5 @@ export interface BatchReserveTicketsParams {
 }
 
 export interface BatchReserveTicketsResult {
-  reservationIds: string[];
+  reservationId: string;
 }

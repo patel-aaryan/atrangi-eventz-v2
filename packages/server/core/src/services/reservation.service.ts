@@ -206,14 +206,14 @@ class ReservationService {
       // Validate availability for all requested reservations
       validateAvailability(requestedByTier, tierAvailability);
 
-      // All validations passed, create all reservations
-      const reservationIds = await this.reservationCache.createReservations(
+      // All validations passed, create grouped reservations in cache
+      const reservationId = await this.reservationCache.createReservations(
         eventId,
         sessionId,
         reservations,
       );
 
-      return { reservationIds };
+      return { reservationId };
     } finally {
       // Always release the lock, even if an error occurs
       await this.reservationCache.releaseLock(eventId);

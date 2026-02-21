@@ -10,7 +10,8 @@
     "lint": "turbo lint",
     "check-types": "turbo check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "ui:add": "node scripts/ui-add.js"
+    "ui:add": "node scripts/ui-add.js",
+    "test": "node packages/server/infra/src/test.js"
   },
   "devDependencies": {
     "@atrangi/eslint-config": "workspace:*",

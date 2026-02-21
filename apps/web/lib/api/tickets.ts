@@ -19,12 +19,12 @@ interface BatchReserveTicketsRequest {
 }
 
 interface BatchReserveTicketsResponse {
-  reservationIds: string[];
+  reservationId: string;
   createdAt: number;
 }
 
 export interface ReservationResult {
-  reservationIds: string[];
+  reservationId: string;
   createdAt: number;
 }
 
@@ -118,5 +118,5 @@ export async function reserveTicketsBatch(
   }
 
   const data: BatchReserveTicketsResponse = await response.json();
-  return { reservationIds: data.reservationIds, createdAt: data.createdAt };
+  return { reservationId: data.reservationId, createdAt: data.createdAt };
 }

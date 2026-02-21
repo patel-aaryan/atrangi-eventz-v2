@@ -5,7 +5,7 @@ import {
   ContactFormEmail,
 } from "@atrangi/core/emails";
 import { pdfService } from "@atrangi/core/services/pdf";
-import type { EmailOptions } from "@atrangi/core/types";
+import type { ContactData, EmailOptions, TicketConfirmationData } from "@atrangi/core/types";
 
 class EmailService {
   private readonly domain: string;
@@ -48,22 +48,7 @@ class EmailService {
     }
   }
 
-  async sendTicketConfirmationEmail(data: {
-    to: string;
-    orderNumber: string;
-    eventTitle: string;
-    eventDate: string;
-    eventLocation: string;
-    tickets: Array<{
-      ticketCode: string;
-      attendeeName: string;
-      tierName: string;
-      price: number;
-      qrCodeData: string;
-    }>;
-    orderTotal: number;
-    buyerName: string;
-  }): Promise<void> {
+  async sendTicketConfirmationEmail(data: TicketConfirmationData): Promise<void> {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL;
 
     const pdf = await pdfService.generateTicketsPdf({
@@ -112,11 +97,7 @@ class EmailService {
     });
   }
 
-  async sendContactFormEmail(data: {
-    name: string;
-    email: string;
-    message: string;
-  }): Promise<void> {
+  async sendContactFormEmail(data: ContactData): Promise<void> {
     const recipientEmail = process.env.NEXT_PUBLIC_EMAIL;
 
     if (!recipientEmail) {

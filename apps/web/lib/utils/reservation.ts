@@ -94,7 +94,7 @@ export async function handleBatchReservation(
 
   // Return createdAt timestamp so client can sync reservation timer
   return NextResponse.json(
-    { reservationIds: result.reservationIds, createdAt: Date.now() },
+    { reservationId: result.reservationId, createdAt: Date.now() },
     { status: 200 },
   );
 }
