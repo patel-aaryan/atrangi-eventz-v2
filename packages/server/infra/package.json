@@ -11,6 +11,7 @@
     "@aws-sdk/s3-request-presigner": "^3.980.0",
     "@upstash/qstash": "^2.8.4",
     "@upstash/redis": "^1.35.6",
+    "resend": "^6.9.2",
     "stripe": "^20.1.0"
   },
   "devDependencies": {

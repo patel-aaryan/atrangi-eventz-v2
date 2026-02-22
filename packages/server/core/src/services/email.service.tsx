@@ -1,54 +1,61 @@
-import { mg } from "@atrangi/infra/mailgun";
+import { resend } from "@atrangi/infra/resend";
 import { render } from "@react-email/render";
 import {
   TicketConfirmationEmail,
   ContactFormEmail,
 } from "@atrangi/core/emails";
 import { pdfService } from "@atrangi/core/services/pdf";
-import type { ContactData, EmailOptions, TicketConfirmationData } from "@atrangi/core/types";
+import type {
+  ContactData,
+  EmailOptions,
+  TicketConfirmationData,
+} from "@atrangi/core/types";
 
 class EmailService {
   private readonly domain: string;
   private readonly defaultFrom: string;
 
   constructor() {
-    this.domain = process.env.MAILGUN_DOMAIN || "";
+    this.domain = process.env.RESEND_DOMAIN || "";
     this.defaultFrom =
-      process.env.MAILGUN_FROM_EMAIL || `noreply@${this.domain}`;
+      process.env.RESEND_FROM_EMAIL || `noreply@${this.domain}`;
 
-    if (!this.domain) console.warn("MAILGUN_DOMAIN is not set in env");
+    if (!this.domain) console.warn("RESEND_DOMAIN is not set in env");
   }
 
   private async sendEmail(options: EmailOptions): Promise<void> {
     try {
       const messageData = {
         from: options.from || this.defaultFrom,
-        to: Array.isArray(options.to) ? options.to.join(", ") : options.to,
+        to: Array.isArray(options.to) ? options.to : [options.to],
         subject: options.subject,
-        ...(options.text && { text: options.text }),
-        ...(options.html && { html: options.html }),
+        text: options.text || "",
+        html: options.html || "",
         ...(options.attachments &&
           options.attachments.length > 0 && {
-            attachment: options.attachments.map((attachment) => ({
+            attachments: options.attachments.map((attachment) => ({
               filename: attachment.filename,
-              data: attachment.data,
-              contentType: attachment.contentType,
+              content: attachment.data,
             })),
           }),
       };
 
-      const response = await mg.messages.create(
-        this.domain,
-        messageData as Parameters<typeof mg.messages.create>[1],
-      );
-      console.log("Email sent successfully:", response);
+      const response = await resend.emails.send(messageData);
+
+      if (response.error) {
+        throw new Error(`Resend Error: ${response.error.message}`);
+      }
+
+      console.log("Email sent successfully:", response.data);
     } catch (error) {
       console.error("Error sending email:", error);
       throw error;
     }
   }
 
-  async sendTicketConfirmationEmail(data: TicketConfirmationData): Promise<void> {
+  async sendTicketConfirmationEmail(
+    data: TicketConfirmationData,
+  ): Promise<void> {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL;
 
     const pdf = await pdfService.generateTicketsPdf({
