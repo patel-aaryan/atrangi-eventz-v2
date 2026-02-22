@@ -11,6 +11,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
     devDependencies:
       '@atrangi/eslint-config':
         specifier: workspace:*
