@@ -26,21 +26,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.1
+
+      - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 22
-          cache: npm
+          node-version: 24
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
+
+      - name: Pull Secrets from Infisical
+        uses: infisical/secrets-action@v1.0.9
+        with:
+          env-slug: ${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
+          client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+          client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          project-slug: ${{ secrets.INFISICAL_PROJECT_SLUG }}
+          secret-path: ${{ secrets.INFISICAL_SECRET_PATH }}
 
       - name: Run migrations
         env:
           NODE_ENV: production
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           CI: true
-        run: npm run migrate
+        run: pnpm migrate
 
       - name: Migration completed
         run: echo "✅ Database migrations completed successfully"

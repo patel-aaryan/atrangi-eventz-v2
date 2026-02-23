@@ -1,18 +1,13 @@
 {
   "dev": {
     "driver": "pg",
-    "ENV": "DATABASE_URL",
-    "multipleStatements": true
+    "connectionString": { "ENV": "DATABASE_URL" },
+    "ssl": { "rejectUnauthorized": false }
   },
-  "test": {
+  "production": {
     "driver": "pg",
-    "ENV": "DATABASE_URL",
-    "multipleStatements": true
-  },
-  "prod": {
-    "driver": "pg",
-    "ENV": "DATABASE_URL",
-    "multipleStatements": true
+    "connectionString": { "ENV": "DATABASE_URL" },
+    "ssl": { "rejectUnauthorized": false }
   },
   "sql-file": true
 }
