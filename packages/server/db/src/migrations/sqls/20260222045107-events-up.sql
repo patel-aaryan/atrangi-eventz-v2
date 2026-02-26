@@ -9,7 +9,7 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TYPE event_status AS ENUM ('draft', 'published', 'cancelled', 'completed');
+CREATE TYPE event_status AS ENUM ('draft', 'published', 'cancelled');
 CREATE TYPE order_status AS ENUM ('pending', 'confirmed', 'cancelled', 'refunded');
 CREATE TYPE ticket_status AS ENUM ('pending', 'confirmed', 'checked_in');
 
@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS events (
     total_revenue DECIMAL(12, 2) DEFAULT 0.00,
     num_sponsors INTEGER DEFAULT 0,
     num_volunteers INTEGER DEFAULT 0,
+    rules TEXT,
     
     -- Ticket tiers 
     ticket_tiers JSONB DEFAULT '[]'::jsonb,

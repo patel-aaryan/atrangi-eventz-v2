@@ -7,7 +7,7 @@ import type {
   GalleryImage,
 } from "@atrangi/types";
 
-const PAST_EVENTS_TTL = 8; // 1 day in seconds
+const PAST_EVENTS_TTL = 43200; // 12 hours in seconds
 const UPCOMING_EVENTS_TTL = 3600; // 1 hour in seconds
 
 /**
@@ -34,9 +34,7 @@ export async function getUpcomingEventStatic(): Promise<UpcomingEventStatic | nu
 /**
  * Cached event detail by slug (for layout generateMetadata).
  */
-export async function getEventBySlug(
-  slug: string,
-): Promise<EventDetail | null> {
+export async function getEventBySlug(slug: string): Promise<EventDetail | null> {
   return unstable_cache(
     () => eventService.getEventBySlug(slug),
     ["event-by-slug", slug],
@@ -48,9 +46,7 @@ export async function getEventBySlug(
  * Cached gallery images for an event.
  */
 export async function getEventImages(slug: string): Promise<GalleryImage[]> {
-  return unstable_cache(
-    () => eventService.getEventImages(slug),
-    ["event-images", slug],
-    { revalidate: PAST_EVENTS_TTL },
-  )();
+  return unstable_cache(() => eventService.getEventImages(slug), ["event-images", slug], {
+    revalidate: PAST_EVENTS_TTL,
+  })();
 }

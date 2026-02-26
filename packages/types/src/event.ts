@@ -1,6 +1,6 @@
 // Event types based on database schema (shared: web + core)
 
-type EventStatus = "draft" | "published" | "cancelled" | "completed";
+type EventStatus = "draft" | "published" | "cancelled";
 
 export interface TicketTier {
   name: string;
