@@ -27,14 +27,14 @@ function SponsorCardContent({
       className="group relative w-full overflow-hidden border-0 bg-linear-to-br from-gray-900
               to-black p-0 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/30"
     >
-      {/* Sponsor Image */}
-      <div className="relative h-48 w-full overflow-hidden flex items-center justify-center bg-linear-to-br from-gray-800 to-gray-900">
+      {/* Sponsor Image — 7:4 aspect ratio */}
+      <div className="relative aspect-[7/4] w-full overflow-hidden flex items-center justify-center bg-black">
         {image_url ? (
           <Image
             src={image_url}
             alt={company_name}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
+            className="object-contain transition-transform duration-300 group-hover:scale-110"
           />
         ) : (
           <div className="h-full w-full flex items-center justify-center bg-linear-to-br from-gray-700 to-gray-800 text-white text-6xl font-bold">
@@ -42,12 +42,12 @@ function SponsorCardContent({
           </div>
         )}
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
       </div>
 
       {/* Sponsor Info */}
-      <CardHeader className="relative z-10 -mt-16 bg-linear-to-t from-black to-transparent px-6 pb-4 pt-16">
-        <CardTitle className="text-xl font-bold text-white">
+      <CardHeader className="px-4 pb-3">
+        <CardTitle className="text-base font-semibold text-white">
           {company_name}
         </CardTitle>
       </CardHeader>
