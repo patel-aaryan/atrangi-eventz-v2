@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS events (
     
     -- Status and visibility
     status event_status DEFAULT 'draft',
-    is_featured BOOLEAN DEFAULT false,
     is_public BOOLEAN DEFAULT true,
     
     -- SEO and metadata
