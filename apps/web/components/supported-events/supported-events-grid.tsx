@@ -26,25 +26,6 @@ export function SupportedEventsGrid({
 
   return (
     <div className="mb-20">
-      <motion.div
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
-        variants={fadeInUp}
-        className="text-center mb-12"
-      >
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          Events We{" "}
-          <span className="bg-linear-to-r from-primary to-highlight bg-clip-text text-transparent">
-            Supported
-          </span>
-        </h2>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Celebrating the artists and events we&apos;ve partnered with across
-          the Gujarati community.
-        </p>
-      </motion.div>
-
       {isLoading && (
         <div className="text-center py-12 text-muted-foreground">
           Loading supported events...

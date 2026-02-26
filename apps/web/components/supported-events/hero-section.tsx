@@ -42,12 +42,9 @@ export function HeroSection() {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="py-4 text-center text-4xl font-bold tracking-tight md:text-6xl"
+          className="text-primary py-4 text-center text-4xl font-bold tracking-tight md:text-6xl"
         >
-          Events We{" "}
-          <span className="bg-linear-to-r from-primary to-highlight bg-clip-text text-transparent">
-            Supported
-          </span>
+          Events We Supported
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 40 }}
