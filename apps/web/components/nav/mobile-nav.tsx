@@ -99,7 +99,7 @@ export function MobileNav() {
               </div>
             )}
           </div>
-          <div className="mt-auto flex gap-3 border-t border-border pt-6">
+          <div className="mt-auto flex justify-center gap-3 border-t border-border pt-6">
             {SOCIAL_LINKS.map((social) => {
               const Icon = social.icon;
               return (
