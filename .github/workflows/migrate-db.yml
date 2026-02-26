@@ -6,13 +6,13 @@ on:
       confirm:
         description: 'Type "migrate" to confirm running migrations'
         required: true
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - migrations/**
-  #     - database.json
-  #     - scripts/migrate.js
+  push:
+    branches:
+      - main
+    paths:
+      - migrations/**
+      - database.json
+      - scripts/migrate.js
 
 jobs:
   migrate:
