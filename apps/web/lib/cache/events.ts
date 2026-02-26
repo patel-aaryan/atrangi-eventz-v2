@@ -7,7 +7,7 @@ import type {
   GalleryImage,
 } from "@atrangi/types";
 
-const PAST_EVENTS_TTL = process.env.NODE_ENV === "production" ? 43200 : 5; // 12 hours in seconds (or 5 in dev)
+const PAST_EVENTS_TTL = process.env.NODE_ENV === "production" ? 86400 : 5; // 1 day in seconds (or 5 in dev)
 const UPCOMING_EVENTS_TTL = 3600; // 1 hour in seconds
 
 /**
