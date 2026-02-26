@@ -5,15 +5,14 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Textarea } from "@atrangi/ui";
-import { FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 import { Mail, Send } from "lucide-react";
-import { siteConfig } from "@/lib/metadata";
 import { usePathname } from "next/navigation";
 import { submitContactForm } from "@/lib/api/contact";
 import {
   contactFormSchema,
   type ContactFormInput,
 } from "@/lib/validation/contact";
+import { SOCIAL_LINKS } from "@/constants/socials";
 
 const ENABLE_TICKETING = process.env.NEXT_PUBLIC_ENABLE_TICKETING === "true"; // TODO: REMOVE THIS IN NEXT RELEASE
 
@@ -28,27 +27,6 @@ const QUICK_LINKS = [
   { name: "Past Events", href: "/past-events" },
   { name: "Supported Events", href: "/supported-events" },
   { name: "Sponsors", href: "/sponsors" },
-];
-
-const SOCIAL_LINKS = [
-  {
-    name: "Instagram",
-    icon: FaInstagram,
-    href: siteConfig.links.instagram,
-    color: "hover:text-pink-500",
-  },
-  {
-    name: "YouTube",
-    icon: FaYoutube,
-    href: siteConfig.links.youtube,
-    color: "hover:text-red-600",
-  },
-  {
-    name: "TikTok",
-    icon: FaTiktok,
-    href: siteConfig.links.tiktok,
-    color: "hover:text-foreground",
-  },
 ];
 
 export function Footer() {

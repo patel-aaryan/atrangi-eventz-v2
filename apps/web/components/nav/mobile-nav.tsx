@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { SOCIAL_LINKS } from "@/constants/socials";
 import {
   Button,
   Sheet,
@@ -42,7 +42,7 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-75 sm:w-100"
+        className="flex w-75 flex-col sm:w-100"
         onCloseAutoFocus={(e) => {
           if (navigatedFromSheetRef.current) {
             navigatedFromSheetRef.current = false;
@@ -60,35 +60,68 @@ export function MobileNav() {
             </span>
           </SheetTitle>
         </SheetHeader>
-        <div className="mt-8 flex flex-col gap-4">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              onClick={(e) => {
-                if (!item.href.includes("#")) {
-                  navigatedFromSheetRef.current = true;
-                }
-                handleHashNavigation(e, item.href, pathname, () =>
-                  setIsOpen(false),
-                );
-              }}
-              className="text-foreground/80 hover:text-foreground transition-colors font-medium"
-            >
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
+        <div className="mt-8 flex flex-1 flex-col min-h-0">
+          <div className="flex flex-col gap-4">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={(e) => {
+                  const path = item.href.split("#")[0] ?? item.href;
+                  const isCurrentRoute =
+                    pathname === path || (path === "/" && pathname === "/");
+                  if (isCurrentRoute) {
+                    e.preventDefault();
+                    setIsOpen(false);
+                    return;
+                  }
+                  if (!item.href.includes("#")) {
+                    navigatedFromSheetRef.current = true;
+                  }
+                  handleHashNavigation(e, item.href, pathname, () =>
+                    setIsOpen(false),
+                  );
+                }}
+                className="text-foreground/80 hover:text-foreground transition-colors font-medium"
               >
-                {item.name}
-              </Button>
-            </Link>
-          ))}
-          {/* TODO: REMOVE CONDITIONAL RENDERING IN NEXT RELEASE */}
-          {ENABLE_TICKETING && (
-            <div className="mt-4">
-              <ShoppingCartDropdown />
-            </div>
-          )}
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-base"
+                >
+                  {item.name}
+                </Button>
+              </Link>
+            ))}
+            {/* TODO: REMOVE CONDITIONAL RENDERING IN NEXT RELEASE */}
+            {ENABLE_TICKETING && (
+              <div className="mt-4">
+                <ShoppingCartDropdown />
+              </div>
+            )}
+          </div>
+          <div className="mt-auto flex gap-3 border-t border-border pt-6">
+            {SOCIAL_LINKS.map((social) => {
+              const Icon = social.icon;
+              return (
+                <Button
+                  key={social.name}
+                  variant="outline"
+                  size="icon"
+                  aria-label={social.name}
+                  className="rounded-full"
+                  asChild
+                >
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                </Button>
+              );
+            })}
+          </div>
         </div>
       </SheetContent>
     </Sheet>
