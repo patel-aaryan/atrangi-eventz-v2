@@ -20,9 +20,7 @@ export default async function EventDetailPage({
     getEventImages(slug),
   ]);
 
-  if (!event) {
-    return <EventNotFound message="Event not found" />;
-  }
+  if (!event) return <EventNotFound message="Event not found" />;
 
   // Find banner image from gallery
   const bannerImage = images.find((img) =>
